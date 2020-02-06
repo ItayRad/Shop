@@ -1,0 +1,6 @@
+<%- include("../app/models/user.js"); %>
+<% queryUserbyID = function(id) { %>
+    <% User.findOne({_id:id}, function(err,foundUser){ %>
+      <% return foundUser; %>
+    <% }); %>
+<% } %>

@@ -1,0 +1,44 @@
+<%- include("partials/header"); -%>
+
+
+<script>
+function check()
+{
+
+  var oldname = $("[name='oldName']").val();
+  var newname = $("[name='newName']").val();
+
+if (newname === "")
+{
+  newname=oldname;
+  $("[name='newName']").val(oldname);
+}
+
+}
+  </script>
+
+<h1>Modify user page</h1>
+
+    <form onsubmit="check()" action="../update"  method="post" autocomplete="off">
+
+      <%allusers.forEach(function(user){ %> %>
+
+      <p >   <kbd> Name:</kbd>  <%= user.username %>
+        <input type="hidden" id="olduser" name="oldName" value="<%= user.username %>">
+         <input type="text" required id="newuser"  placeholder="Enter a New Name" name="newName">if empty, stays the same </p>
+
+<p> <kbd>Password:</kbd>
+  <input type="text" placeholder="Enter a new Password" name="newPassword"> if empty, stays the same</p>
+  <p> <kbd>Permission:</kbd>
+    <input type="text"  placeholder="0 or 1" name="newPermission"> currently: <%=user.admin%> (0 - for normal, 1 for admin)</p>
+
+
+            <% }) %>
+
+<button type="submit" onclick="check()"  class="btn btn-lg btn-primary">UPDATE</button>
+
+    </form>
+<p id="errortext"></p>
+
+
+<a href="../"> Go Back </a>

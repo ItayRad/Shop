@@ -1,0 +1,16 @@
+<%- include("partials/header"); -%>
+<h1>Login</h1>
+<form class="" action="/login" method="post">
+  <div class="form-group">
+    <p style="margin-top:35px;" class="alert alert-success <%if (!errorMsg) { %> hidden <%}%>  ">
+    <%=errorMsg%>
+    </p>
+    <label>User</label>
+    <input class="form-control" type="text" name="username">
+    <label>Password</label>
+    <input type="text" class="form-control" name="password">
+  </div>
+  <button class="btn btn-primary" type="submit" name="button">LOGIN</button>
+</form>
+<p>Don't have an account yet? <a href="/register">Sign up instead!</a></p>
+<%- include("partials/footer"); -%>
