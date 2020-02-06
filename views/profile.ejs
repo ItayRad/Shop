@@ -1,0 +1,50 @@
+<%- include("partials/header"); %>
+
+
+Hello <% if (user!=null) { %>
+<%= user.username%>
+
+<% } %>
+
+
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h1><%=title%> <%=req.params.user%></h1>
+        <hr>
+        <h2>Orders</h2>
+
+        <% var totalPrices = 0; orders.forEach(function(order) { %>
+
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="list-group">
+
+                        <% order.items.forEach(function(item){ %>
+
+
+                            <li class="list-group-item">
+                                <span class="badge"><%= item.price %>$</span>
+                              <img src="<%= item.item.imagePath %>" style="width:25px;height:25px"></img>
+                                <%= item.item.title %> | <%= item.qty %>
+                                   <% if (item.qty < 2 ) { %> Unit <% } else { %> Units <% } %>
+
+                            </li>
+                        <%     totalPrices+=item.price;      }) %>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <strong>Total Price: $<%= order.cart.totalPrice %><span class="pull-right"> Purchased at: <%=order.date%></span></strong>
+                </div>
+            </div>
+        <% }) %>
+        <h4> Total Money Purchased in Site:       <%= totalPrices%>$ </h4>
+
+    </div>
+</div>
+
+
+
+
+<%- include("partials/footer"); -%>

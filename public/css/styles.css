@@ -1,0 +1,132 @@
+html {
+  min-height: 100%;
+  position: relative;
+  z-index:0;
+}
+table, th, td {
+font-family:Arial;
+  border-collapse: collapse;
+}
+.btn {
+  position:relative;
+  z-index:4;
+}
+.specialfas{
+  padding-left:5px;
+}
+span .badge {
+  width:15px;
+  height:65px;
+}
+.productqty {
+
+  display: block;
+
+  background: Gray;
+  color:white;
+  width: 15px;
+  margin-left:5px;
+  text-align:center;
+  height:22px;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+.navbar-brand a {
+  color:#777;
+}
+
+.container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+.cart-btn {
+  margin-top:45px;
+}
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+}
+.navbar-nav  li a:hover {
+    color: #1abc9c !important;
+}
+
+.footer-padding {
+	padding-bottom: 60px;
+}
+
+.footer {
+	position: absolute;
+	text-align: center;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	background-color: #1abc9c;
+}
+
+.footer p {
+	margin-top: 25px;
+	font-size: 12px;
+  color: #fff;
+}
+
+.thumbnail {
+    position: relative;
+    padding: 0px;
+    margin-bottom: 20px;
+    top:50px;
+    height:50rem;
+}
+
+.thumbnail > h4 {
+    padding: 7px 5px 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.thumbnail h4 .info {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 0.6em;
+    padding-left: 15px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 4px;
+    border-radius: 0px;
+    border-bottom-left-radius: 5px;
+    cursor:  pointer;
+}
+.productImg {
+  max-height:250px;
+}
+.thumbnail h4 .info > span {
+    margin-right: 10px;
+}
+
+.thumbnail img {
+    width: 100%;
+
+}
+.thumbnail a.btn {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+@media (min-width: 768px ) {
+  .row {
+      position: relative;
+  }
+
+  .bottom-align-text {
+    position: absolute;
+    bottom: 2px;
+    right: 0;
+  }
+}

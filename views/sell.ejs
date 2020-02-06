@@ -1,0 +1,28 @@
+
+<%- include("partials/header"); -%>
+    <h1>Add a Product</h1>
+    <form class="" action="/sell" method="post">
+      <div class="form-group">
+        <label>Image (link to an image)</label>
+        <input type="text" class="form-control" name="imgPath">
+        <label>Title</label>
+        <input class="form-control" type="text" name="title">
+        <label>Description</label>
+        <input type="text" maxlength="150" class="form-control" name="description">
+        <label>price</label>
+        <input type="number" class="form-control" placeholder="$ only" name="price">
+
+
+      </div>
+      <button class="btn btn-primary" type="submit" name="button">Add Product</button>
+    </form>
+
+
+
+
+
+    </div>
+    <div id="output"></div>
+    <script src="bundle.js"></script>
+
+<%- include("partials/footer"); -%>

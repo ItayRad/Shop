@@ -1,0 +1,20 @@
+<%- include("partials/header"); -%>
+
+
+
+<h1>
+  <% if(error == "User validation failed: email: Path `email` is required.") { %>
+  <% error = "No Email was given"; %>
+  <%= error %>
+
+  <% } if (error) { %>
+    <%= error %>
+    <% } %>
+
+
+
+
+
+</h1>
+
+<a href="javascript:history.back();">Go Back</a>
