@@ -1,0 +1,44 @@
+<%- include("partials/admin"); %>
+
+
+<div class="row">
+  <p style="margin-top:35px;" class="alert alert-success <%if (!succesMsg) { %> hidden <%}%>  ">
+  <%=succesMsg%>
+  </p>
+    <div class="col-md-8 col-md-offset-2">
+        <h1>Site Complaints</h1>
+        <hr>
+
+
+                <% foundMsgs.forEach(function(msg) { %>
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="list-group">
+
+
+
+
+                            <li class="list-group-item">
+                              <%= msg.title %>
+                            </li>
+                                      <li class="list-group-item">  <%= msg.message %>
+
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <strong>Sent by: <%= msg.user %>  <span class="deletemsg"><a href="/msg-del/<%=msg._id%>"> DELETE</a> </span> <span class="pull-right">Time: <%= msg.date%></span></strong>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+
+
+
+
+
+<%- include("partials/footer"); -%>

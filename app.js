@@ -4,7 +4,7 @@ var flash = require('connect-flash');
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const mongoose = require('mongoose').set('debug', false);
+const mongoose = require('mongoose').set('debug', true);
 const app = express();
 //const encrypt = require("mongoose-encryption");
 //const md5 = require("m5");
@@ -15,7 +15,8 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const validator = require('express-validator');
 const MongoStore = require("connect-mongo")(session);
-
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 let router = express.Router({
   mergeParams: true
@@ -41,14 +42,14 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 db.con(mongoose);
-
 
 const User = require("./app/models/user.js");
 const Product = require("./app/models/product.js");
 const Order = require("./app/models/order.js");
 const Cart = require("./app/models/cart");
+const Site = require("./app/models/settings");
+const Message = require("./app/models/message");
 
 passport.use(User.createStrategy());
 passport.serializeUser(function(user, done) {
@@ -59,7 +60,6 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-
 app.use(function(req, res, next) {
   res.locals.isAuthenticated = req.isAuthenticated();
 
@@ -69,12 +69,19 @@ app.use(function(req, res, next) {
 
 app.locals.isAdmin = isAdmin;
 
+
+
+var functions = require('./app/functions.js');
+
+app.locals.siteLogo = "/images/siteLogo.jpg";
+
+
+
 var homeRouter = require('./app/home.js');
 app.use('/', homeRouter);
 
 var regRouter = require('./app/register.js');
 app.use('/register', regRouter);
-
 
 var loginRouter = require('./app/login.js');
 app.use('/login', loginRouter);
@@ -91,255 +98,160 @@ app.use('/update', postRouter);
 var deluserRouter = require('./app/deluser.js');
 app.use('/deluser', deluserRouter);
 
-app.get("/sell", function(req, res) {
-  res.render("sell");
-});
 var sellRouter = require('./app/sell.js');
 app.use('/sell', sellRouter);
 
+var checkoutRouter = require('./app/checkout.js');
+app.use('/checkout', checkoutRouter);
+
+var productRouter = require('./app/products.js');
+app.use('/products', productRouter);
+
+var addtocartRouter = require('./app/cart.js');
+app.use('/', addtocartRouter);
+
+var profileRouter = require('./app/profile.js');
+app.use('/profile', profileRouter);
+
+var purchasesRouter = require('./app/purchases.js');
+app.use('/purchases', purchasesRouter);
 
 
-app.get("/products", function(req, res) {
-var successMsg = req.flash("success")[0];
-var successcart = req.flash("successcart")[0];
-var permission = 0;
-var foundUser = "";
-if (req.user != null) //////////// checks if user is LOGGED IN
-{
-User.findOne({username:req.user.username}, function(err,foundUser){
-
-  permission = foundUser.admin;
-  Product.find({}, function(err,found) {
-    if (req.user != null)
-    {
-        res.render("products", { products: found,successCart:successcart, successMsg:successMsg, user:permission ? permission:0});
-      }
-
-    });
-});
-}
-if (req.user == null) /////// checks if user is not logged in
-{
-  Product.find({}, function(err,found) {
-        res.render("products", { products: found,successCart:successcart, successMsg:successMsg, user:0});
-    });}
-
-
+app.get("/admin", functions.isAdmin,  function(req,res) {
+  res.render("./partials/admin", {isAdmin:isAdmin});
 });
 
+app.get("/admin/site-settings", functions.isAdmin,  function(req,res) {
+  var errorMsg = "";
 
-
-
-app.get("/add-to-cart/:id", function(req, res) {
-var productId = req.params.id;
-var cart = new Cart(req.session.cart ? req.session.cart : {});
-Product.findById(productId, function (err, product){
-  if (err){
-  console.log(err);
-}
-
-cart.add(product, product.id);
-req.flash('successcart', 'Successfully added to cart');
-req.session.cart = cart;
-
-res.redirect("back");
+  res.render("./site-settings", {
+    errorMsg: errorMsg
+  });
 });
+
+var path = require('path');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now());
+  }
 });
 
 
-app.get("/removeOne-from-cart/:id", function(req, res) {
-  var cartMsg = req.flash("successcart")[0];
-var productId = req.params.id;
-var cart = new Cart(req.session.cart ? req.session.cart : {});
-Product.findById(productId, function (err, product){
-  if (err){
-  console.log(err);
-}
-cartqty = cart.removeOne(product, product.id);
-if (cartqty >= 1 ){
-req.flash('cartremoveMsg', 'Successfully removed 1 from cart');
-}
-else{
-  req.flash('cartremoveMsg', 'Successfully removed from cart');
-  cart.removeItem(productId);
-}
-req.session.cart = cart;
-res.redirect("back");
-});
-});
+var upload = multer({ storage: storage });
 
 
 
-app.get("/shopping-cart", function(req, res) {
-    var successcart = "";
-    successcart = req.flash("successcart")[0];
-    var cartremoveMsg = req.flash("cartremoveMsg")[0];
-  if (!req.session.cart) {
-  return res.render("shopping-cart", {products:null,successcart:successcart, cartremoveMsg:cartremoveMsg});
-}
-var cart = new Cart(req.session.cart);
-res.render("shopping-cart", {products:cart.generateArray(), totalPrice: cart.totalPrice, successcart:successcart, cartremoveMsg:cartremoveMsg});
-});
+app.post("/admin/site-settings", upload.single('avatar'), functions.isAdmin,  function(req,res) {
 
-app.get("/remove-from-cart/:id", function(req, res) {
-var productId = req.params.id;
-var cart = new Cart(req.session.cart ? req.session.cart: {});
-
-cart.removeItem(productId);
-req.session.cart = cart;
-res.redirect("/shopping-cart");
-
-});
-
-app.get("/removeProduct/:id", isAdmin, function(req, res) {
-var productId = req.params.id;
-var product = new Product(req.session.cart ? req.session.cart: {});
-
-Product.findOneAndRemove({_id:productId},function(err,product)
-{
-res.redirect("/products");
-});
+  var newLogo = req.body.sitelogo;
+  var errorMsg = "";
 
 
+  if (req.file) {
+      console.log('Uploading file...');
+       errorMsg += req.file.originalname;
+       errorMsg += ' File Uploaded Successfully';
+  } else {
+      console.log('No File Uploaded');
+       errorMsg += 'FILE NOT UPLOADED';
+      errorMsg += 'File Upload Failed';
 
-});
-
-app.get("/removeAll", function(req, res) {
-var productId = req.params.id;
-var cart = new Cart(req.session.cart ? req.session.cart: {});
-
-cart.removeAll();
-req.session.cart = cart;
-res.redirect("/shopping-cart");
-
-});
-
-
-app.get("/checkout", isLoggedIn, function(req, res) {
-if (!req.session.cart) {
-  return res.redirect("/shopping-cart");
-}
-var cart = new Cart(req.session.cart);
-var errMsg = req.flash("error")[0];
-res.render("checkout", {total:cart.totalPrice, errMsg:errMsg, user:req.user });
-
-});
-
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-app.post('/checkout', isLoggedIn, function(req, res, next) {
-    if (!req.session.cart) {
-        return res.redirect('/shopping-cart');
-    }
-    var cart = new Cart(req.session.cart);
-
-    var stripe = require("stripe")(
-        "sk_test_VldL2vkrI1yOcLqKM0HAahWE00DpJHF0Dm"
-    );
-
-    stripe.charges.create({
-        amount: cart.totalPrice * 100,
-        currency: "usd",
-        source: req.body.stripeToken, // obtained with Stripe.js
-        description: "Test Charge"
-    }, function(err, charge) {
-        if (err) {
-            req.flash('error', err.message);
-            return res.redirect('/checkout');
-        }
-        var today = new Date();
+  }
+  var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 today = mm + '/' + dd + '/' + yyyy;
-        var order = new Order({
-            user: req.user,
-            cart: cart,
-            address: req.body.address,
-            name: req.body.name,
-            paymentId: charge.id,
-            date: today + " " + time
-        });
-        order.save(function(err, result) {
-            req.flash('success', 'Successfully bought product!');
-            req.session.cart = null;
-            res.redirect('/products');
-        });
-    });
-});
 
-app.get("/profile", isLoggedIn, function(req,res) {
-Order.find({user:req.user}, function(err,orders){
-  if (err) {
-    return res.write("error finding orders");
-  }
-  var cart;
-  orders.forEach(function(order){
-    cart = new Cart(order.cart);
-    order.items = cart.generateArray();
-  });
-
-  res.render("profile", {title:"My Profile", user:req.user, orders:orders, req:req});
-  });
-});
-
-app.get("/admin", isAdmin, function(req,res) {
-  Order.find({}, function(err,orders){
-    if (err) {
-      return res.write("error finding orders");
-    }
-    var cart;
-    orders.forEach(function(order){
-      cart = new Cart(order.cart);
-      order.items = cart.generateArray();
-    });
-
-      res.render("admin", {user:req.user, orders:orders, User:User});
-    });
-});
-app.get("/purchases/:user", isAdmin, function(req,res) {
-  console.log(req.params.user);
-Order.find({name:req.params.user}, function(err,orders){
-  if (err) {
-    return res.write("error finding orders");
-  }
-  var cart;
-  orders.forEach(function(order){
-    cart = new Cart(order.cart);
-    order.items = cart.generateArray();
-  });
-
-  res.render("profile", {title:"Purchases of",user:req.user, orders:orders, req:req});
-  });
-});
-app.get("*",  function(req,res) {
-  res.redirect("/");
-});
+var logo1 = new Site ({logo:newLogo, date:today + " " + time});
 
 
+    Site.collection.drop();
+if (newLogo.length > 0) {
+   logo1.save();
+   app.locals.siteLogo = logo1.logo;
+ }
+ else{
+        var fullPath = "/uploads/"+req.file.filename;
+     var logo2 = new Site ({logo:fullPath, date:today + " " + time});
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    req.session.oldUrl = req.url;
-    res.redirect('/login');
+   app.locals.siteLogo = logo2.logo;
+  logo2.save();
 }
+    res.render("./site-settings", {errorMsg: errorMsg});
+
+});
+
+app.get("/admin/messages",  function(req,res) {
+  var succesMsg = "";
+  Message.find({}, function(err,foundMsgs){
+    res.render("messages", {foundMsgs: foundMsgs,succesMsg:succesMsg});
+  });
+
+});
+
+app.get("/complaints",  function(req,res) {
+      var succesMsg = "";
+    res.render("complaints", {succesMsg:succesMsg});
+  });
+  app.post("/complaints",  function(req,res) {
+    var succesMsg = "";
+    var title = req.body.title;
+    var complaint = req.body.complaint;
+
+    var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  today = mm + '/' + dd + '/' + yyyy;
+
+    var newMsg = new Message( {
+      user: req.user.username,
+      email: req.user.email,
+      title: title,
+      message: complaint,
+      date:today + " " + time
+    });
+newMsg.save();
+succesMsg = "Succesfully Sent Message, Thank you";
+res.render("complaints", {succesMsg:succesMsg});
+
+    });
+
+    app.get("/msg-del/:id",  function(req,res) {
+          var succesMsg = "Succesfully Deleted ";
+          Message.findOneAndDelete({_id:req.params.id}, function(err){
+            Message.find({}, function(err,foundMsgs){
+              res.render("messages", {foundMsgs: foundMsgs,succesMsg:succesMsg});
+            });
+          });
+
+      });
+
+// app.get("*",  function(req,res) {
+//   res.redirect("/");
+// });
+
+
 function isAdmin(req, res, next) {
-  if (req.isAuthenticated())
-  {
-  User.findOne({username:req.user.username}, function(err,foundUser){
-    if (foundUser.admin == 1) {
+  if (req.user) {
+    User.findOne({
+      username: req.user.username
+    }, function(err, foundUser) {
+      if (foundUser.admin == 1) {
         return next();
-    }
-    else{
-      res.redirect("/login");
-    }
-  });
-}
-else{
-  res.redirect("/");
-}
+      } else {
+        res.redirect("/login");
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
 }
 
 

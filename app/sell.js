@@ -1,13 +1,14 @@
 //jshint esversion:6
 var express = require('express');
 var router = express.Router();
-const mongoose = require('mongoose');
-
-var db = require("./connection.js");
-db.con(mongoose);
+var functions = require("./functions");
 var Product = require("./models/product.js");
 
-router.post('/', function(req, res) {
+router.get("/", functions.isAdmin, function(req, res) {
+  res.render("sell");
+});
+
+router.post('/', functions.isAdmin, function(req, res) {
   var imgPath = req.body.imgPath;
   var itemTitle = req.body.title;
   var itemDescription = req.body.description;

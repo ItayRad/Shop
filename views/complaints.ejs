@@ -1,0 +1,20 @@
+<%- include("partials/header"); -%>
+<h1>Send Complaints</h1>
+
+<p style="margin-top:35px;" class="alert alert-success <%if (!succesMsg) { %> hidden <%}%>  ">
+<%=succesMsg%>
+</p>
+
+<form class="" action="/complaints" method="post">
+  <div class="form-group">
+
+    </p>
+    <label>Title</label>
+    <input class="form-control" type="text" name="title">
+    <label>Complaint</label>
+    <textarea style="height:250px;" class="form-control" name="complaint"></textarea>
+  </div>
+  <button class="btn btn-primary pull-right" type="submit" name="button">SEND</button>
+</form>
+
+<%- include("partials/footer"); -%>
