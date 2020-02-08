@@ -1,0 +1,39 @@
+<%- include("partials/admin"); %>
+
+<form class="" action="/admin/site-settings" enctype="multipart/form-data" method="post">
+  <div class="form-group">
+    <p style="margin-top:35px;" class="alert alert-success <%if (!errorMsg) { %> hidden <%}%>  ">
+      <%=errorMsg%>
+      </p>
+      <label>Site Logo</label>
+      <input onchange=" disables()" id="logo1" class="form-control" type="text" name="sitelogo"></input>
+      <input onchange="disables()" id="logo2" type="file" accept="image/*" name="avatar">
+
+      <h1 id="output"></h1>
+
+  </div>
+  <button id="btnSaveComment" class="btn btn-primary" type="submit" disabled name="button">UPDATE</button>
+</form>
+
+
+
+
+<script>
+  document.getElementById("btnSaveComment").disabled = true;
+
+  $(document).ready(function() {
+    $("#logo1,#logo2").on("change paste keyup", function() {
+      var text1 = $("#logo1").val();
+      var text2 = $("#logo2").val();
+      if (text1.length > 0 && text2.length > 0) {
+        document.getElementById("output").innerHTML = "Can only choose one option";
+        document.getElementById("btnSaveComment").disabled = true;
+      } else {
+        document.getElementById("btnSaveComment").disabled = false;
+
+      }
+    });
+  });
+</script>
+
+<%- include("partials/footer"); -%>

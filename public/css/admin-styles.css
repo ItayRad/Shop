@@ -1,0 +1,93 @@
+body,html{
+height: 100%;
+background-color:#FAFAFA;
+}
+
+/*small/medium side display*/
+@media (min-width: 768px) {
+
+/*Center Brand*/
+nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+  text-align: center;
+  width: 100%;
+  margin-left: 0px;
+}
+
+/*Center Icons*/
+nav.sidebar a{
+  padding-right: 13px;
+}
+
+
+
+/*adds border to bottom nav boxes*/
+nav.sidebar .navbar-nav > li{
+  border-bottom: 1px #e5e5e5 solid;
+}
+nav.sidebar{
+  position:absolute;
+  top:90px;
+  left:0;
+  width: 250px;
+  height: 75%;
+  margin-left: -160px;
+  float: left;
+  z-index: 8000;
+  margin-bottom: 0px;
+}
+
+nav.sidebar li {
+  width: 100%;
+    height: 100%;
+}
+nav.sidebar{
+
+  margin-left: 0px;
+  float: left;
+}
+}
+@media (max-width: 768px) {
+
+/*Center Brand*/
+nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+  text-align: center;
+  width: 100%;
+  margin-left: 0px;
+    height: 100%;
+}
+
+/*Center Icons*/
+nav.sidebar a{
+  padding-right: 13px;
+}
+
+/*adds border top to first nav box */
+nav.sidebar .navbar-nav > li:first-child{
+  border-top: 1px #e5e5e5 solid;
+}
+
+/*adds border to bottom nav boxes*/
+nav.sidebar .navbar-nav > li{
+  border-bottom: 1px #e5e5e5 solid;
+}
+nav.sidebar{
+  position:relative;
+  top:0;
+  left:0;
+  width: 250px;
+  height: 100%;
+  margin-left: -160px;
+  float: left;
+  z-index: 8000;
+  margin-bottom: 0px;
+}
+
+nav.sidebar li {
+  width: 100%;
+}
+nav.sidebar{
+  height: 100%;
+  margin-left: 0px;
+  float: left;
+}
+}
