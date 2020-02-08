@@ -229,9 +229,9 @@ res.render("complaints", {succesMsg:succesMsg});
 
       });
 
-// app.get("*",  function(req,res) {
-//   res.redirect("/");
-// });
+app.get("*",  function(req,res) {
+  res.redirect("/");
+});
 
 
 function isAdmin(req, res, next) {
@@ -251,8 +251,7 @@ function isAdmin(req, res, next) {
 }
 
 
-// var server = app.listen(process.env.PORT || 3000, function () {
-var server = app.listen(process.env.PORT, function () {
+var server = app.listen(process.env.PORT || 3000, function () {
   var port = server.address().port;
   console.log("Express is working on port " + port);
 });
