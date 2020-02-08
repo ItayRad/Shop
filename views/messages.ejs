@@ -29,7 +29,7 @@
                     </ul>
                 </div>
                 <div class="panel-footer">
-                    <strong>Sent by: <%= msg.user %>  <span class="deletemsg"><a href="/msg-del/<%=msg._id%>"> DELETE</a> </span> <span class="pull-right">Time: <%= msg.date%></span></strong>
+                    <strong>Sent by: <%= msg.user %> <%=msg.email %>  <span class="deletemsg"><a href="/msg-del/<%=msg._id%>"> DELETE</a> </span> <span class="pull-right">Time: <%= msg.date%></span></strong>
                 </div>
             </div>
         <% }) %>
