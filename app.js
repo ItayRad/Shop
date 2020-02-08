@@ -6,10 +6,6 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require('mongoose').set('debug', true);
 const app = express();
-//const encrypt = require("mongoose-encryption");
-//const md5 = require("m5");
-// const bcrypt = require("bcrypt");
-// const saltRounds = 10;
 const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
@@ -255,7 +251,8 @@ function isAdmin(req, res, next) {
 }
 
 
-var server = app.listen(process.env.PORT || 3000, function () {
+// var server = app.listen(process.env.PORT || 3000, function () {
+var server = app.listen(process.env.PORT, function () {
   var port = server.address().port;
   console.log("Express is working on port " + port);
 });
