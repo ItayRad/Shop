@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "name": "Shopping Site",
   "version": "1.0.0",
