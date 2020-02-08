@@ -1,7 +1,10 @@
 {
-  "name": "ejs-challenge",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "name": "Shopping Site",
   "version": "1.0.0",
-  "description": "",
+  "description": "Shopping Site",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
