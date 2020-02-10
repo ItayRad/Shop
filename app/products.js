@@ -24,11 +24,12 @@ User.findOne({username:req.user.username}, function(err,foundUser){
     });
 });
 }
-if (req.user == null) /////// checks if user is not logged in
-{
+else { /////// checks if user is not logged in
+
   Product.find({}, function(err,found) {
         res.render("products", { products: found,successCart:successcart, successMsg:successMsg, user:0});
-    });}
+    });
+  }
 
 
 });
