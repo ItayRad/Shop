@@ -1,8 +1,7 @@
 {
   "scripts": {
       "start": "node app.js"
-    }
-
+    },
   "name": "shop",
   "version": "1.0.0",
   "description": "shop",
