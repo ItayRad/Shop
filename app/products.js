@@ -9,7 +9,6 @@ router.get("/", function(req, res) {
 var successMsg = req.flash("success")[0];
 var successcart = req.flash("successcart")[0];
 var permission = 0;
-var foundUser = "";
 if (req.user != null) //////////// checks if user is LOGGED IN
 {
 User.findOne({username:req.user.username}, function(err,foundUser){
