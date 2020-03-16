@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Product = require("./models/product.js");
+const Product = require("./models/product.js");
 const Cart = require("./models/cart");
 
 router.get("/shopping-cart", function(req, res) {

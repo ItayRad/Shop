@@ -5,7 +5,7 @@ var router = express.Router();
 var User = require("./models/user.js");
 var Site = require("./models/settings.js");
 
-function isLoggedIn(req, res, next) {
+function isLogged(req, res, next) {
     if (req.isAuthenticated() != null) {
         return next();
     }
@@ -34,4 +34,4 @@ function setLogo() {
     return siteLogo;
 });
 }
-module.exports = {isLoggedIn, isAdmin, setLogo};
+module.exports = {isLogged, isAdmin, setLogo};

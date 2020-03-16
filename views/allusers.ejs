@@ -11,10 +11,10 @@
       <h2 class="secret-text"><%= user.username %>
         </td>
           <td>
-<button  class="btn btn-danger" action="submit" value="<%=user._id%>"  name="deluser" formaction="/deluser">DELETE</button>
+<button  class="btn btn-danger" action="submit" value="<%=user._id%>"  name="deluser" formaction="/admin/deluser">DELETE</button>
 </td>
 <td>
-<button  class="btn btn-primary" action="submit" value="<%=user._id%>"  name="modifyuser" formaction="/allusers/<%=user.username%>">MODIFY</button>
+<button  class="btn btn-primary" action="submit" value="<%=user._id%>"  name="modifyuser" formaction="/admin/allusers/<%=user.username%>">MODIFY</button>
 </td>
 </tr>
 

@@ -17,26 +17,57 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <ul class="list-group">
+                      <li class="list-group-item">
+                      <strong>Num:</strong> <%=msg.counter%>
+                      </li>
 
-
-
+                      <li class="list-group-item">
+                      <strong>Status:</strong> <% if(msg.status == 0) { %> Open <% } else { %> Closed <% } %>
+                      </li>
 
                             <li class="list-group-item">
-                            Message Title:  <%= msg.title %>
+                            <strong>Title:</strong>  <%= msg.title %>
                             </li>
                                       <li class="list-group-item">
-                                        Message Content:  <%= msg.message %>
-
+                                        <strong>Content:</strong>  <%= msg.message %>
+</li>
+                                      <li class="list-group-item">
+  <strong>Answer:</strong>  <%= msg.answer %>
+                                        </li>
+              <% if (msg.status==1)   {               %>         <li class="list-group-item">
+    <strong>Closed by:</strong>  <%= msg.closedBy %>
+                                          </li> <% } %>
                     </ul>
                 </div>
+
                 <div class="panel-footer">
-                    <strong>Sent by: <%= msg.user %> <%=msg.email %>  <span class="deletemsg"><a href="/msg-del/<%=msg._id%>"> DELETE</a> </span> <span class="pull-right">Time: <%= msg.date%></span></strong>
+                    <strong>Sent by: <%= msg.user %> <br/> Email: <%=msg.email %>
+                       <span class="deletemsg"><a href="/admin/msg-del/<%=msg._id%>">DELETE MSG</a> </span>
+                      <!-- <span class="msg-respond"><a href="admin/msg-respond/<%=msg._id%>">RESPOND</a> </span> -->
+
+
+                        <span class="pull-right">Time: <%= msg.date%></span></strong>
+
+  <div class="answerclass" <% if (msg.status==1) { %> style="display:none" <% } %>>
+<strong>Answer:</strong>
+<form method="post">
+  <textarea name='replyAnswer' placeholder='Enter your reply here' rows='3' cols='40' class='Commentary'>
+  </textarea>
+
+
+
+
+
+
+  <input type="hidden" name="answerid" value="<%=msg._id%>">
+    <button class='send' type='submit'>REPLY & Close Complaint</submit>
+         </form>
+         </div>
                 </div>
             </div>
         <% }) %>
     </div>
 </div>
-
 
 
 
