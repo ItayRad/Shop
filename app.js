@@ -172,11 +172,13 @@ function isAdmin(req, res, next) {
 }
 function isLogged(req, res, next) {
 
-    // if (req.isAuthenticated() != null) {
-     if (req.session.user_id) {
+   if (req.isAuthenticated()) {
+  //   if (req.session.user_id) {
         return next();
     }
+    else {
     res.redirect('/login');
+  }
 }
 
 var server = app.listen(process.env.PORT || 3000, function () {
