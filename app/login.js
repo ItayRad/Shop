@@ -8,7 +8,7 @@ var User = require("./models/user.js");
 const bodyParser = require("body-parser");
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
-
+var counter = 0;
 
 router.get("/", function(req, res) {
 var errorMsg = "";
@@ -43,7 +43,7 @@ var errorMsg = "";
             return next(loginErr);
           }
         else {
-
+          counter++;
           res.redirect("/");
         }
         });
