@@ -153,3 +153,32 @@ bottom:1;
     right: 0;
   }
 }
+
+#topPanel {
+  width:75%;
+}
+#topPanel li {
+
+    border-right: 1px #e5e5e5 solid;
+}
+@media (min-width: 768px ) and (max-width:1320px) {
+    #topPanel {
+    font-size:8px;
+    width:80%;
+  }
+}
+
+@media (max-width: 768px ) {
+
+
+  #topPanel {
+    margin-top:5%;
+
+  }
+#topPanel li {
+
+width:50%;
+    border-bottom: 1px #e5e5e5 solid;
+    border-right: 0px #e5e5e5 solid;
+}
+}
