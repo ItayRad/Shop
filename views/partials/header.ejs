@@ -7,14 +7,14 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-
+<link rel="icon" href="/uploads/favicon.png">
   <link rel="stylesheet" href="/css/styles.css">
 
   <nav class="navbar navbar-default">
     <div class="container" >
       <div class="navbar-header">
 
-        <p class="navbar-brand"><a href="/"><img class="navbar-brand-logo" src="<%=siteLogo%>"></img>WOW Shop</a></p>
+        <p class="navbar-brand"><a href="/"><img class="navbar-brand-logo" src="<%=siteLogo%>"></img></a></p>
 
       </div>
       <ul id="topPanel" class="nav navbar-nav navbar-right">
@@ -28,7 +28,7 @@
         <% if (isAuthenticated) { %>       <!-- LOGGED IN MENU -->
 
         <li id="sell"><a href="/profile">PROFILE</a></li>
-        <li id="shopping-cart"><a href="/shopping-cart">SHOPPING CART<span class="badge"> </span> </a> </li>
+        <li id="shopping-cart"><a href="/shopping-cart">SHOPPING CART</a> </li>
         <li id="products"><a href="/products">PRODUCTS</a></li>
         <li id="products"><a href="/complaints">COMPLAINTS</a></li>
         <li id="contact"><a href="/logout">LOGOUT</a></li>

@@ -1,60 +1,53 @@
 <%- include("partials/admin"); -%>
 
-<h1> Statistics </h1>
-<div class="container bootstrap snippet">
+
+<div class="admin-dash" style="margin-top:50px;" id="tourpackages-carousel">
+ <h1> Statistics </h1>
   <div class="row">
-    <div class="col-lg-2 col-sm-6">
-      <div class="circle-tile ">
-        <a href="/admin/allusers">
-          <div class="circle-tile-heading dark-blue"><i class="fa fa-users fa-fw fa-3x"></i></div>
+
+
+
+            <div class="myproducts col-xs-6 col-sm-2 col-md-2"> <a href="/admin/allusers">
+          <i class="fa fa-users fa-fw fa-3x"></i>
+      </a>
+      <div class="circle-tile-content dark-blue">
+        <div class="circle-tile-description text-faded"> Users</div>
+        <div class="circle-tile-number text-faded "><%=users %></div>
+        <a class="circle-tile-footer" href="/admin/allusers">More Info<i class="fa fa-chevron-circle-right"></i></a>
+      </div>
+</div>
+
+
+        <div class="myproducts col-xs-6 col-sm-2 col-md-2">
+        <a href="/products">
+          <div class="circle-tile-heading dark-blue"><i class="fab fa-product-hunt fa-fw fa-3x"></i></div>
         </a>
         <div class="circle-tile-content dark-blue">
-          <div class="circle-tile-description text-faded"> Users</div>
-          <div class="circle-tile-number text-faded "><%=users %></div>
-          <a class="circle-tile-footer" href="/admin/allusers">More Info<i class="fa fa-chevron-circle-right"></i></a>
+          <div class="circle-tile-description text-faded"> Products</div>
+          <div class="circle-tile-number text-faded "><%=products %></div>
+          <a class="circle-tile-footer" href="/products">More Info<i class="fa fa-chevron-circle-right"></i></a>
         </div>
-      </div>
-    </div>
-
-
-        <div class="col-lg-2 col-sm-6">
-          <div class="circle-tile ">
-            <a href="/products">
-              <div class="circle-tile-heading dark-blue"><i class="fab fa-product-hunt fa-fw fa-3x"></i></div>
-            </a>
-            <div class="circle-tile-content dark-blue">
-              <div class="circle-tile-description text-faded"> Products</div>
-              <div class="circle-tile-number text-faded "><%=products %></div>
-              <a class="circle-tile-footer" href="/products">More Info<i class="fa fa-chevron-circle-right"></i></a>
-            </div>
+</div>
+            <div class="myproducts col-xs-6 col-sm-2 col-md-2">
+          <a href="/admin/messages">
+            <div class="circle-tile-heading dark-blue"><i class="fas fa-envelope fa-fw fa-3x"></i></div>
+          </a>
+          <div class="circle-tile-content dark-blue">
+            <div class="circle-tile-description text-faded"> Messages</div>
+            <div class="circle-tile-number text-faded "><%=msgs %></div>
+            <a class="circle-tile-footer" href="/admin/messages">More Info<i class="fa fa-chevron-circle-right"></i></a>
           </div>
         </div>
 
-
-            <div class="col-lg-2 col-sm-6">
-              <div class="circle-tile ">
-                <a href="/admin/messages">
-                  <div class="circle-tile-heading dark-blue"><i class="fas fa-envelope fa-fw fa-3x"></i></div>
-                </a>
-                <div class="circle-tile-content dark-blue">
-                  <div class="circle-tile-description text-faded"> Messages</div>
-                  <div class="circle-tile-number text-faded "><%=msgs %></div>
-                  <a class="circle-tile-footer" href="/admin/messages">More Info<i class="fa fa-chevron-circle-right"></i></a>
-                </div>
-              </div>
-            </div>
-
-
-
-                <div class="col-lg-2 col-sm-6">
-                  <div class="circle-tile ">
-                    <a href="admin/purchases">
-                      <div class="circle-tile-heading dark-blue"><i class="fas fa-shopping-bag fa-fw fa-3x"></i></div>
-                    </a>
-                    <div class="circle-tile-content dark-blue">
-                      <div class="circle-tile-description text-faded"> Purchases</div>
-                      <div class="circle-tile-number text-faded "><%=purchases %></div>
-                      <a class="circle-tile-footer" href="admin/purchases">More Info<i class="fa fa-chevron-circle-right"></i></a>
-                    </div>
-                  </div>
-                </div>
+          <div class="myproducts col-xs-6 col-sm-2 col-md-2 col-lg-4">
+          <a href="admin/purchases">
+            <div class="circle-tile-heading dark-blue"><i class="fas fa-shopping-bag fa-fw fa-3x"></i></div>
+          </a>
+          <div class="circle-tile-content dark-blue">
+            <div class="circle-tile-description text-faded"> Purchases</div>
+            <div class="circle-tile-number text-faded "><%=purchases %></div>
+            <a class="circle-tile-footer" href="admin/purchases">More Info<i class="fa fa-chevron-circle-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>

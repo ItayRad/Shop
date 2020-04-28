@@ -1,7 +1,7 @@
 <%- include("partials/header"); -%>
-<p style="margin-top:35px;" class="alert alert-success <%if (!successcart && !cartremoveMsg) { %> hidden <%}%>  ">
-<%=successcart%>
-<%=cartremoveMsg%>
+<p style="margin-top:35px;" class="alert alert-success <%if (!goodMsg && !badMsg) { %> hidden <%}%>  ">
+<%=goodMsg%>
+<%=badMsg%>
 
 <i class="fas fa-check"></i></p>
 <% if (products != "") { %>

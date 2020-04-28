@@ -59,12 +59,12 @@ passport.deserializeUser(function(user, done) {
 
 app.use(function(req, res, next) {
   res.locals.isAuthenticated = req.isAuthenticated();
-
+res.locals.isAdmin = isAdmin;
   res.locals.session = req.session;
   next();
 });
 
-app.locals.isAdmin = isAdmin;
+
 
 
 

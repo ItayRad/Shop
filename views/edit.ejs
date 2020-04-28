@@ -1,0 +1,48 @@
+<%- include("partials/admin"); -%>
+<p style="margin-top:35px;" class="alert alert-success <%if (!goodMsg ) { %> hidden <%}%>  ">
+<%=goodMsg%>
+
+<i class=" fas fa-check"></i></p>
+<style>
+
+</style>
+<div class="admin-dash" style="margin-top:50px;" id="tourpackages-carousel">
+
+  <table class="edit-page-table">
+    <td></td>
+    <td class="tdtitle"> Title </td>
+    <td class="tdcat">Category</td>
+    <td class="tdprice"> Price </td>
+        <td class="tdprice"> quantity </td>
+    <td class="tdstatus"> Status </td>
+    <td> createdAt </td>
+    <td> lastUpdated </td>
+    <td> Edit </td>
+    <td> Remove </td>
+    <%products.forEach(function(product){ %>
+    <tr>
+      <td> <img class="tdimage" src="<%=product.imagePath %>" alt=""></td>
+      <td class="tdtitle"> <%=product.title%></td>
+      <td class="tdcat"> <%=product.category%></td>
+      <td class="tdprice"> <%=product.price%>$ </td>
+            <td class="tdprice"> <%=product.quantity%></td>
+      <td> <% if(product.status == 1) {%>Active <% } else { %> Disabled <% } %> </td>
+      <td> <%=product.createdAt%></td>
+      <td> <%=product.lastUpdated%> </td>
+      <td style="text-align:center;"> <a href="edit/<%=product.id%>"> <i class="fas fa-edit fa-2x"></i> </a></td>
+      <td> <a href="removeProduct/<%=product.id%>"><i class="fas fa-trash-alt fa-2x"></i> </a> </td>
+    </tr>
+
+
+
+    <div class="caption">
+
+
+
+      <% }) %>
+  </table>
+
+  <div class="text-center">
+  </div>
+</div>
+<%- include("partials/footer"); -%>

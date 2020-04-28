@@ -2,27 +2,35 @@
 
 
 <head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" href="/css/admin-styles.css">
+<script src="/javascripts/main.js" charset="utf-8"></script>
+
 
 </head>
+<div class="mySidebar">
+<div style="position:absolute;left:0px;width:15%">
+ <button style="margin-top:-75px;  background-color: #222; color:White" class="btn btn-lg " onclick="sidebar_toggle()">Admin Panel☰</button>
+ </div>
 
-<nav id="adminPanel" class="navbar navbar-inverse sidebar" >
+  <div class="border-right-1" style="display:none;left:0px;" id="mySidebar">
 
-		<div class="navbar-header">
 
-			<a class="navbar-brand" href="/admin">Admin Panel</a>
-		</div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
+<ul id="admin-list" class="list-group">
+<a   href="/admin"><li class="list-group-item">DASH BOARD<span style="margin-left:1px;"  class="pull-right   showopacity glyphicon glyphicon-home"></span></li></a>
+<a  href="/admin/purchases"><li class="list-group-item">PURCHASES<span style="margin-right:4px;" class="pull-right   showopacity fab fa-product-hunt"></span></li></a>
+<a  href="/admin/sell"><li class="list-group-item">ADD PRODUCT<span  class="pull-right   showopacity glyphicon glyphicon-plus"></span></li></a>
+<a  href="/admin/edit"><li class="list-group-item">EDIT PRODUCT<span  class="pull-right   showopacity glyphicon glyphicon-edit"></span></li></a>
+<a  href="/admin/coupons"><li class="list-group-item">COUPONS<span style="margin-right:5px;" class="pull-right   showopacity fas fa-percent"></span></li></a>
+<a  href="/admin/messages"><li class="list-group-item">MESSAGES<span  class="pull-right   showopacity glyphicon glyphicon-envelope"></span></li></a>
+<a  href="/admin/site-settings"><li class="list-group-item">SITE SETTINGS<span  style="margin-right:3px;" class="pull-right   showopacity fas fa-cogs"></span></li></a>
+<a  href="/admin/allusers"><li class="list-group-item">ALL USERS<span style="margin-right:4px;" class="pull-right   showopacity fas fa-users"></span></li></a>
+</ul>
 
-			<ul class="nav navbar-nav">
-        <li ><a href="/admin">DASH BOARD<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-				<li ><a href="/admin/purchases">PURCHASES<span style="font-size:16px;margin-right:3px;" class="pull-right hidden-xs showopacity fab fa-product-hunt"></span></a></li>
-				<li ><a href="/admin/sell">ADD PRODUCT<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-plus"></span></a></li>
-				<li ><a href="/admin/messages">MESSAGES<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
-				<li ><a href="/admin/site-settings">SITE SETTINGS<span style="font-size:16px;" class="pull-right hidden-xs showopacity fas fa-cogs"></span></a></li>
-				<li ><a href="/admin/allusers">ALL USERS<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-envelope"></span></a></li>
-			</ul>
-</nav>
+
+  </div>
+
+</div>
