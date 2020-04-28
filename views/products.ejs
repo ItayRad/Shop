@@ -1,31 +1,44 @@
 <%- include("partials/header"); -%>
-<p style="margin-top:35px;" class="alert alert-success <%if (!successMsg && !successCart) { %> hidden <%}%>  ">
-<%=successMsg%>
-<%=successCart%>
+<p style="margin-top:35px;" class="alert alert-success <%if (!goodMsg ) { %> hidden <%}%>  ">
+<%=goodMsg%>
+
 <i class="fas fa-check"></i></p>
     <div class="container d-flex justify-content-center" style="margin-top:50px;" id="tourpackages-carousel">
 
-
-
+<div class="categories">
+  <ul>
+      <%products.forEach(function(product){ %>
+        <li>
+          <%=product.category%>
+          </li>
+          <% }) %>
+          </ul>
+</div>
       <div class="row">
       <%products.forEach(function(product){ %>
+          <% if (product.status == 1) { %>
         <div class="myproducts col-xs-18 col-sm-6 col-md-3">
           <div class="thumbnail">
             <img class="productImg" src="<%=product.imagePath %>" alt="">
               <div class="caption">
+  <h4>Status:<%=product.status%></h4>
+
                 <h4><%=product.title%></h4>
                 <p><%= product.description%></p>
                 <p>Price:<%= product.price%>$</p>
 
+                 <% if (isAuthenticated) { if (isAdmin) { %> <p>quantity:<%= product.quantity%></p><% }} %>
                 <div class="bottom-align-text col-sm-10">
-                <a href="/add-to-cart/<%=product.id%>" class="btn btn-info btn-xs " role="button">Add to Cart<i class="fas fa-cart-plus specialfas"></i></a>
+          <% if (product.quantity>0) { %>     <a href="/add-to-cart/<%=product.id%>" class="btn btn-info btn-xs " role="button">Add to Cart<i class="fas fa-cart-plus specialfas"></i></a>
+           <% } else { %>
+            <strike>Out of Stock</strike>  <% } %>
               <% if (user == 1) { %> <a href="/removeProduct/<%=product.id%>" class="btn btn-danger btn-xs" role="button">REMOVE</a> <% } %>
             </div>
             </div>
           </div>
         </div>
 
-        <% }) %>
+        <% }}) %>
          </div><!-- End row -->
 
       <div>

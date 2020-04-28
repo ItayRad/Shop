@@ -1,6 +1,6 @@
 
   <%- include("partials/admin"); %>
-
+<div class="admin-dash">
     <h1>Add a Product</h1>
     <form class="" action="/admin/sell" method="post">
       <div class="form-group">
@@ -12,8 +12,21 @@
         <input type="text" maxlength="150" class="form-control" name="description">
         <label>price</label>
         <input type="number" class="form-control" placeholder="$ only" name="price">
-
-
+        <label>Category</label>
+        <select class="form-control" name="itemCategory">
+<option value="0"></option>
+<option value="Horror">Horror</option>
+<option value="Racing">Racing</option>
+<option value="MMO">MMO-RPG</option>
+<option value="Shooting">Shooting</option>
+          </select>
+          <label>Quantity</label>
+          <input type="number" class="form-control" placeholder="qty" name="itemQuantity">
+                  <label>Status</label>
+          <select class="form-control" name="itemStatus">
+            <option value="1" default>Active</option>
+            <option value="0">Disabled</option>
+    </select>
       </div>
       <button class="btn btn-primary" type="submit" name="button">Add Product</button>
     </form>

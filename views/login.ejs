@@ -8,23 +8,18 @@
     <%=errorMsg%>
     </p>
     <label>User</label>
-    <input class="form-control" type="text" name="username">
+    <input class="form-control" style="width:15%" type="text" name="username">
     <label>Password</label>    <i   onclick="togglePasswordFieldClicked()" id="togglePasswordField" value="Toggle Password" class="fas fa-eye"></i>
 
-    <input class="form-control" style="width:25%" id="passwordField" type="password"  value="" autocomplete="off" name="password">
+    <input class="form-control" style="width:15%" id="passwordField" type="password"  value="" autocomplete="off" name="password">
   </div>
   <button class="btn btn-primary" type="submit" name="button">LOGIN</button>
 </form>
 <p>Don't have an account yet? <a href="/register">Sign up instead!</a></p>
 <%- include("partials/footer"); -%>
+<script src="javascripts/main.js"></script>
 
-
-<script>
-
-//   $(document).on('click', function () {
-//    $(this).attr('type', 'password');
-// });
-
+<!-- <script>
 
   function togglePasswordFieldClicked() {
   var pwID = document.getElementById("passwordField");
@@ -34,4 +29,4 @@
     pwID.type = "password";
   }
 }
-</script>
+</script> -->

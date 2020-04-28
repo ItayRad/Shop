@@ -1,0 +1,52 @@
+<%- include("partials/admin"); -%>
+<p style="margin-top:35px;" class="alert alert-success <%if (!goodMsg ) { %> hidden <%}%>  ">
+<%=goodMsg%>
+
+<i class=" fas fa-check"></i></p>
+
+<div class="d-flex justify-content-center text-center" align="center">
+  <div class="editcontainer">
+    <h2> Edit Product</h2>
+    <img class="imgexample" src="<%=product.imagePath %>">
+</div>
+</div>
+<div class="admin-dash" style="margin-top:50px;" id="tourpackages-carousel">
+
+  <form class="" action="/admin/edit/<%=product.id%>" method="post">
+    <div class="form-group">
+      <input type="hidden" name="uid" value="<%=product._id%>">
+      <label>Image (link to an image)</label>
+      <input type="text" class="form-control" name="imgPath" value="<%=product.imagePath %>">
+      <label>Title</label>
+      <input class="form-control" type="text" name="title" value="<%=product.title%>">
+      <label>Description</label>
+      <input type="text" maxlength="150" class="form-control" name="description" value="<%=product.description%>">
+      <label>Price</label>
+      <input type="number" class="form-control" placeholder="$ only" name="price" value="<%=product.price%>">
+      <label>Category</label>
+      <select class="form-control" name="itemCategory">
+<option value="<%=product.category%>">          <%=product.category%>  </option>
+<option value="Horror">Horror</option>
+<option value="Racing">Racing</option>
+<option value="MMO">MMO-RPG</option>
+<option value="Shooting">Shooting</option>
+        </select>
+        <label>Quantity</label>
+        <input type="number" class="form-control" placeholder="qty" name="itemQuantity" value="<%=product.quantity%>" >
+                <label>Status</label>
+        <select class="form-control" name="itemStatus">
+          <option value="1">Active</option>
+          <option value="0" <% if(product.status == 0){ %> selected="selected" <% } %>>Disabled</option>
+
+
+
+
+  </select>
+    </div>
+    <button class="btn btn-primary" type="submit" name="button">Update</button>
+  </form>
+
+  <div class="text-center">
+  </div>
+</div>
+<%- include("partials/footer"); -%>

@@ -89,20 +89,90 @@ router.get("/sell", function(req, res) {
 router.post('/sell', function(req, res) {
   var imgPath = req.body.imgPath;
   var itemTitle = req.body.title;
+  var itemCategory = req.body.itemCategory;
+  var itemQuantity = req.body.itemQuantity;
   var itemDescription = req.body.description;
   var itemPrice = req.body.price;
-  var newProduct = new Product({
+  var itemStatus = req.body.itemStatus;
+  var editProduct = new Product({
     imagePath: imgPath,
     title: itemTitle,
+    category: itemCategory,
+    quantity: itemQuantity,
     description: itemDescription,
     price: itemPrice,
+    status: itemStatus,
   });
 
-  newProduct.save();
-  res.redirect("/");
+  editProduct.save();
+  res.redirect("/admin/edit");
+});
+////////.........edit products.........///////
+router.get("/edit", function(req, res) {
+  var goodMsg = req.flash("goodMsg")[0];
+  var successcart = req.flash("successcart")[0];
+  Product.find({}, function(err,found) {
+        res.render("edit", { products: found,successCart:successcart, goodMsg:goodMsg, user:0});
+    });
 });
 
-//admin messages
+router.get("/edit/:id", function(req, res) {
+  var goodMsg = req.flash("goodMsg")[0];
+  var successcart = req.flash("successcart")[0];
+  Product.findById({_id:req.params.id}, function(err,found) {
+
+        res.render("editproduct", { product: found,successCart:successcart, goodMsg:goodMsg, user:0});
+    });
+});
+
+
+
+router.post('/edit/:id', function(req, res) {
+  var itemid= req.body.uid;
+  var imgPath = req.body.imgPath;
+  var itemTitle = req.body.title;
+  var itemCategory = req.body.itemCategory;
+  var itemQuantity = req.body.itemQuantity;
+  var itemDescription = req.body.description;
+  var itemPrice = req.body.price;
+  var itemStatus = req.body.itemStatus;
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  today = dd + '/' + mm + '/' + yyyy + " " + time;
+  var newinfo = {imagePath:imgPath,
+  title:itemTitle,
+  category: itemCategory,
+  quantity: itemQuantity,
+  description: itemDescription,
+  price: itemPrice,
+  status: itemStatus,
+  lastUpdated:today,
+};
+
+Product.findOneAndUpdate({_id:itemid},newinfo,function(err){});
+
+
+  res.redirect("/admin/edit");
+});
+
+
+
+////////.........delete products.........///////
+router.get("/removeProduct/:id", function(req, res) {
+var productId = req.params.id;
+var product = new Product(req.session.cart ? req.session.cart: {});
+
+Product.findOneAndRemove({_id:productId},function(err,product)
+{
+res.redirect("/admin/edit");
+});
+});
+
+
+/////............admin messages.........////////
 router.get("/messages", function(req, res) {
   var succesMsg = "";
   Message.find({}, null, {
