@@ -9,7 +9,7 @@
   <ul>
       <%products.forEach(function(product){ %>
         <li>
-          <%=product.category%>
+        categories:
           </li>
           <% }) %>
           </ul>
@@ -21,7 +21,6 @@
           <div class="thumbnail">
             <img class="productImg" src="<%=product.imagePath %>" alt="">
               <div class="caption">
-  <h4>Status:<%=product.status%></h4>
 
                 <h4><%=product.title%></h4>
                 <p><%= product.description%></p>
@@ -32,8 +31,8 @@
           <% if (product.quantity>0) { %>     <a href="/add-to-cart/<%=product.id%>" class="btn btn-info btn-xs " role="button">Add to Cart<i class="fas fa-cart-plus specialfas"></i></a>
            <% } else { %>
             <strike>Out of Stock</strike>  <% } %>
-              <% if (user == 1) { %> <a href="/removeProduct/<%=product.id%>" class="btn btn-danger btn-xs" role="button">REMOVE</a> <% } %>
-            </div>
+            <!--     <% if (user == 1) { %> <a href="/removeProduct/<%=product.id%>" class="btn btn-danger btn-xs" role="button">REMOVE</a> <% } %> %> -->
+           </div>
             </div>
           </div>
         </div>
