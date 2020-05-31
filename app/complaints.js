@@ -28,9 +28,9 @@ router.get("/",  function(req,res) {
       message: complaint,
       date:today + " " + time,
       status:0,
-      counter:counter,
+
     });
-    counter++;
+
 newMsg.save();
 succesMsg = "Succesfully Sent Message, Thank you";
 res.render("complaints", {succesMsg:succesMsg});

@@ -1,7 +1,7 @@
 //jshint esversion:6
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -14,6 +14,6 @@ siteSchema = new Schema({
   date: { type:String}
 });
 
-
+//siteSchema.plugin(AutoIncrement, {inc_field: 'id'});
 
 module.exports = mongoose.model('Site', siteSchema);

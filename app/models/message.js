@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var User = require("./user.js");
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 msgSchema = new Schema({
     user: {type: Schema.Types.Mixed, ref: 'User'},
@@ -15,9 +16,8 @@ msgSchema = new Schema({
   answer: {type: String},
   counter: {type:Number},
   closedBy: {type:String},
-
 });
 
 
-
+msgSchema.plugin(AutoIncrement, {inc_field: 'id'});
 module.exports = mongoose.model('Message', msgSchema);

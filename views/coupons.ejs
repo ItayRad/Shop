@@ -1,0 +1,48 @@
+<%- include("partials/admin"); -%>
+<p style="margin-top:35px;" class="alert alert-success <%if (!goodMsg ) { %> hidden <%}%>  ">
+<%=goodMsg%>
+
+<i class=" fas fa-check"></i></p>
+<style>
+
+</style>
+<div class="admin-dash" style="margin-top:50px;" id="tourpackages-carousel">
+
+  <table class="edit-page-table">
+
+    <td > ID </td>
+    <td>Name</td>
+        <td class="tdprice">Discount </td>
+    <td class="tdprice"> Validate Till (year/month/day) </td>
+    <td class="tdprice"> Created At </td>
+    <td class="tdstatus"> Status </td>
+    <td> Disable/Enable </td>
+
+
+    <%coupons.forEach(function(coupon){ %>
+    <tr>
+      <td><%=coupon.coupon%></td>
+      <td > <%=coupon.name%></td>
+        <td > <%=coupon.discount%>$</td>
+      <td class="tdprice"> <%=coupon.validatetill%> </td>
+      <td class="tdprice"> <%=coupon.createdAt%></td>
+      <td> <% if(coupon.status == 1) {%>Active <% } else { %> Disabled <% } %> </td>
+      <td> Toggle</td>
+
+
+
+    </tr>
+
+
+
+    <div class="caption">
+
+
+
+      <% }) %>
+  </table>
+<a href="coupons/add"> ADD a new coupon</a>
+  <div class="text-center">
+  </div>
+</div>
+<%- include("partials/footer"); -%>
