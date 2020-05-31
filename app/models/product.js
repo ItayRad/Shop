@@ -1,6 +1,7 @@
 //jshint esversion:6
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 function datenow() {
   var today = new Date();
@@ -37,6 +38,5 @@ schema.pre('save', function(next){
     }
     next();
 });
-
-
+//schema.plugin(AutoIncrement, {inc_field: 'id'});
 module.exports = mongoose.model('Product', schema);

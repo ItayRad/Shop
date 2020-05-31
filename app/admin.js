@@ -13,6 +13,8 @@ const User = require("./models/user.js");
 const Product = require("./models/product.js");
 const Order = require("./models/order.js");
 const Cart = require("./models/cart");
+const Coupon = require("./models/coupon");
+var helper = require("./functions.js");
 var path = require('path');
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -112,7 +114,7 @@ router.get("/edit", function(req, res) {
   var goodMsg = req.flash("goodMsg")[0];
   var successcart = req.flash("successcart")[0];
   Product.find({}, function(err,found) {
-        res.render("edit", { products: found,successCart:successcart, goodMsg:goodMsg, user:0});
+        res.render("productslist", { products: found,successCart:successcart, goodMsg:goodMsg, user:0});
     });
 });
 
@@ -156,6 +158,47 @@ Product.findOneAndUpdate({_id:itemid},newinfo,function(err){});
 
 
   res.redirect("/admin/edit");
+});
+
+
+
+////////////.........coupons..........///////
+
+router.get("/coupons/", function(req, res) {
+
+  var goodMsg = req.flash("goodMsg")[0];
+  var successcart = req.flash("successcart")[0];
+  Coupon.find({}, function(err,found) {
+
+        res.render("coupons", { coupons: found,successCart:successcart, goodMsg:goodMsg, user:0});
+    });
+});
+
+router.get("/coupons/add", function(req, res) {
+
+  res.render("addcoupon.ejs", {});
+});
+
+
+router.post('/coupons/add', function(req, res, next) {
+
+  const name = req.body.cname;
+const discount = req.body.discount;
+const validatetill = req.body.date;
+const status = 1;
+const createdAt = helper.currentTime();
+
+
+  const newCoupon = new Coupon({
+    name:name,
+    discount:discount,
+    validatetill:validatetill,
+    status:status,
+    createdAt:createdAt
+  });
+newCoupon.save();
+console.log("saved?");
+  res.redirect("/admin/coupons/");
 });
 
 
