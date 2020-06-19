@@ -6,16 +6,16 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 schema = new Schema({
-coupon:Number,
+couponid:Number,
 name:String,
 discount:Number,
 validatetill:String,
-status: {type:Number, default:1},
-createdAt: {type: String, },
+status: {type:Boolean, default:true},
+createdAt: {type: String },
 });
 
 
 
-schema.plugin(AutoIncrement, {inc_field: 'coupon'});
+schema.plugin(AutoIncrement, {inc_field: 'couponid'});
 
 module.exports = mongoose.model('Coupon', schema);

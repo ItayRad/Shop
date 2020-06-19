@@ -7,12 +7,12 @@
 
 </style>
 <div class="admin-dash" style="margin-top:50px;" id="tourpackages-carousel">
-
+  <a href="coupons/add"><button style="margin-bottom:5px;" class="btn btn-primary"> ADD a New Coupon</button></a>
   <table class="edit-page-table">
 
-    <td > ID </td>
+    <td> ID </td>
     <td>Name</td>
-        <td class="tdprice">Discount </td>
+    <td class="tdprice">Discount </td>
     <td class="tdprice"> Validate Till (year/month/day) </td>
     <td class="tdprice"> Created At </td>
     <td class="tdstatus"> Status </td>
@@ -21,13 +21,15 @@
 
     <%coupons.forEach(function(coupon){ %>
     <tr>
-      <td><%=coupon.coupon%></td>
-      <td > <%=coupon.name%></td>
-        <td > <%=coupon.discount%>$</td>
+      <td><%=coupon.couponid%></td>
+      <td> <%=coupon.name%></td>
+      <td> <%=coupon.discount%>%</td>
       <td class="tdprice"> <%=coupon.validatetill%> </td>
       <td class="tdprice"> <%=coupon.createdAt%></td>
-      <td> <% if(coupon.status == 1) {%>Active <% } else { %> Disabled <% } %> </td>
-      <td> Toggle</td>
+      <td> <% if(coupon.status) {%>Active <% } else { %> Disabled <% } %> </td>
+      <td>
+        <a href="/admin/coupons/toggle/<%=coupon._id%>">
+          Toggle</a></td>
 
 
 
@@ -41,7 +43,7 @@
 
       <% }) %>
   </table>
-<a href="coupons/add"> ADD a new coupon</a>
+
   <div class="text-center">
   </div>
 </div>

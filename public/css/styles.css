@@ -56,6 +56,11 @@ th, td {
   padding: 5px;
   text-align: left;
 }
+.n1 {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
 .navbar-brand a {
   color:#777;
 }
@@ -154,14 +159,15 @@ bottom:1;
 
 #topPanel {
   width:75%;
+
 }
 #topPanel li {
 
     border-right: 1px #e5e5e5 solid;
 }
-@media (min-width: 768px ) and (max-width:1120px) {
+@media (min-width: 768px ) {
     #topPanel {
-
+  margin-left:15%;
     width:75%;
   }
 }
