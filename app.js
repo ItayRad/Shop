@@ -92,8 +92,8 @@ app.use('/checkout', isLogged, checkoutRouter);
 var productRouter = require('./app/products.js');
 app.use('/products', productRouter);
 
-var addtocartRouter = require('./app/cart.js');
-app.use('/', addtocartRouter);
+var cartRouter = require('./app/cart.js');
+app.use('/', cartRouter);
 
 var profileRouter = require('./app/profile.js');
 app.use('/profile',isLogged, profileRouter);
@@ -150,9 +150,9 @@ app.post("/admin/site-settings", upload.single('avatar'), function(req, res) {
   });
 });
 
-app.get("*",  function(req,res) {
-  res.redirect("/");
-});
+// app.get("*",  function(req,res) {
+//   res.redirect("/");
+// });
 
 
 function isAdmin(req, res, next) {

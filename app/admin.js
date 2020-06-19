@@ -113,24 +113,36 @@ router.post('/sell', function(req, res) {
 router.get("/edit", function(req, res) {
   var goodMsg = req.flash("goodMsg")[0];
   var successcart = req.flash("successcart")[0];
-  Product.find({}, function(err,found) {
-        res.render("productslist", { products: found,successCart:successcart, goodMsg:goodMsg, user:0});
+  Product.find({}, function(err, found) {
+    res.render("productslist", {
+      products: found,
+      successCart: successcart,
+      goodMsg: goodMsg,
+      user: 0
     });
+  });
 });
 
 router.get("/edit/:id", function(req, res) {
   var goodMsg = req.flash("goodMsg")[0];
   var successcart = req.flash("successcart")[0];
-  Product.findById({_id:req.params.id}, function(err,found) {
+  Product.findById({
+    _id: req.params.id
+  }, function(err, found) {
 
-        res.render("editproduct", { product: found,successCart:successcart, goodMsg:goodMsg, user:0});
+    res.render("editproduct", {
+      product: found,
+      successCart: successcart,
+      goodMsg: goodMsg,
+      user: 0
     });
+  });
 });
 
 
 
 router.post('/edit/:id', function(req, res) {
-  var itemid= req.body.uid;
+  var itemid = req.body.uid;
   var imgPath = req.body.imgPath;
   var itemTitle = req.body.title;
   var itemCategory = req.body.itemCategory;
@@ -144,17 +156,20 @@ router.post('/edit/:id', function(req, res) {
   var yyyy = today.getFullYear();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   today = dd + '/' + mm + '/' + yyyy + " " + time;
-  var newinfo = {imagePath:imgPath,
-  title:itemTitle,
-  category: itemCategory,
-  quantity: itemQuantity,
-  description: itemDescription,
-  price: itemPrice,
-  status: itemStatus,
-  lastUpdated:today,
-};
+  var newinfo = {
+    imagePath: imgPath,
+    title: itemTitle,
+    category: itemCategory,
+    quantity: itemQuantity,
+    description: itemDescription,
+    price: itemPrice,
+    status: itemStatus,
+    lastUpdated: today,
+  };
 
-Product.findOneAndUpdate({_id:itemid},newinfo,function(err){});
+  Product.findOneAndUpdate({
+    _id: itemid
+  }, newinfo, function(err) {});
 
 
   res.redirect("/admin/edit");
@@ -168,10 +183,15 @@ router.get("/coupons/", function(req, res) {
 
   var goodMsg = req.flash("goodMsg")[0];
   var successcart = req.flash("successcart")[0];
-  Coupon.find({}, function(err,found) {
+  Coupon.find({}, function(err, found) {
 
-        res.render("coupons", { coupons: found,successCart:successcart, goodMsg:goodMsg, user:0});
+    res.render("coupons", {
+      coupons: found,
+      successCart: successcart,
+      goodMsg: goodMsg,
+      user: 0
     });
+  });
 });
 
 router.get("/coupons/add", function(req, res) {
@@ -183,35 +203,52 @@ router.get("/coupons/add", function(req, res) {
 router.post('/coupons/add', function(req, res, next) {
 
   const name = req.body.cname;
-const discount = req.body.discount;
-const validatetill = req.body.date;
-const status = 1;
-const createdAt = helper.currentTime();
+  const discount = req.body.discount;
+  const validatetill = req.body.date;
+  const status = 1;
+  const createdAt = helper.currentTime();
 
 
   const newCoupon = new Coupon({
-    name:name,
-    discount:discount,
-    validatetill:validatetill,
-    status:status,
-    createdAt:createdAt
+    name: name,
+    discount: discount,
+    validatetill: validatetill,
+    status: status,
+    createdAt: createdAt
   });
-newCoupon.save();
-console.log("saved?");
+  newCoupon.save();
   res.redirect("/admin/coupons/");
 });
 
+router.get('/coupons/toggle/:id', function(req, res, next) {
+  var couponID = req.params.id;
+  Coupon.findOne({
+    _id: couponID
+  }, function(err, found) {
 
+
+      if (found.status) {
+        found.status = false;
+        found.save();
+      } else {
+        found.status = true;
+        found.save();
+      }
+
+  });
+  res.redirect("/admin/coupons/");
+});
 
 ////////.........delete products.........///////
 router.get("/removeProduct/:id", function(req, res) {
-var productId = req.params.id;
-var product = new Product(req.session.cart ? req.session.cart: {});
+  var productId = req.params.id;
+  var product = new Product(req.session.cart ? req.session.cart : {});
 
-Product.findOneAndRemove({_id:productId},function(err,product)
-{
-res.redirect("/admin/edit");
-});
+  Product.findOneAndRemove({
+    _id: productId
+  }, function(err, product) {
+    res.redirect("/admin/edit");
+  });
 });
 
 
