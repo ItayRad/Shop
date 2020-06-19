@@ -7,6 +7,7 @@ var multer = require('multer');
 var upload = multer({
   storage: storage
 });
+var flash = require('connect-flash');
 const Site = require("./models/settings");
 const Message = require("./models/message");
 const User = require("./models/user.js");
@@ -182,14 +183,11 @@ router.post('/edit/:id', function(req, res) {
 router.get("/coupons/", function(req, res) {
 
   var goodMsg = req.flash("goodMsg")[0];
-  var successcart = req.flash("successcart")[0];
   Coupon.find({}, function(err, found) {
 
     res.render("coupons", {
       coupons: found,
-      successCart: successcart,
       goodMsg: goodMsg,
-      user: 0
     });
   });
 });
@@ -201,11 +199,11 @@ router.get("/coupons/add", function(req, res) {
 
 
 router.post('/coupons/add', function(req, res, next) {
-
+  var goodMsg = req.flash("goodMsg")[0];
   const name = req.body.cname;
   const discount = req.body.discount;
   const validatetill = req.body.date;
-  const status = 1;
+  const status = true;
   const createdAt = helper.currentTime();
 
 
@@ -216,7 +214,25 @@ router.post('/coupons/add', function(req, res, next) {
     status: status,
     createdAt: createdAt
   });
-  newCoupon.save();
+
+
+  Coupon.findOne({
+    name: name
+  }, function(err, found) {
+
+if (!found)
+{
+    newCoupon.save();
+    req.flash('goodMsg', 'Coupon Saved!');
+
+}
+else{
+      req.flash('goodMsg', 'Coupon with that name already exists');
+}
+  });
+
+
+
   res.redirect("/admin/coupons/");
 });
 
