@@ -9,42 +9,47 @@ Hello <% if (user!=null) { %>
 
 
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <h1><%=title%> <%=req.params.user%></h1>
-        <hr>
-        <h2>Orders</h2>
+  <div class="col-md-8 col-md-offset-2">
+    <h1><%=title%> <%=req.params.user%></h1>
+    <hr>
+    <h2>Orders</h2>
 
-        <% var totalPrices = 0; orders.forEach(function(order) { %>
-
-
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <ul class="list-group">
-
-                        <% order.items.forEach(function(item){ %>
+    <% var totalPrices = 0; orders.forEach(function(order) { %>
 
 
-                            <li class="list-group-item">
-                                <span class="badge"><%= item.price %>$</span>
-                              <img src="<%= item.item.imagePath %>" style="width:25px;height:25px"></img>
-                                <%= item.item.title %> | <%= item.qty %>
-                                   <% if (item.qty < 2 ) { %> Unit <% } else { %> Units <% } %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <ul class="list-group">
 
-                            </li>
-                        <%     totalPrices+=item.price;      }) %>
-                    </ul>
-                </div>
-                <div class="panel-footer">
-                    <strong>Total Price: $<%= order.cart.totalPrice %><span class="pull-right"> Purchased at: <%=order.date%></span></strong>
-                </div>
-            </div>
-        <% }) %>
-        <h4> Total Money Purchased in Site:       <%= totalPrices%>$ </h4>
+          <% order.items.forEach(function(item){ %>      <!---     DISPLAY SOLD PRODUCTS --->
+          <li class="list-group-item">
+            <span class="badge"><%= item.price %>$</span>
+            <img src="<%= item.item.imagePath %>" style="width:25px;height:25px"></img>
+            <%= item.item.title %> | <%= item.qty %>
+            <% if (item.qty < 2 ) { %> Unit <% } else { %> Units <% } %>
+          </li>
+          <% }) %>
 
+
+          <% order.coupons.forEach(function(coupon){ %>     <!---     DISPLAY USED COUPONS  --->
+          <li class="list-group-item">
+            <img style="width:25px;height:25px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR4WamHIB30JbebcCDr6s55ByhKipiEIFKfOAyhBc73IvDTL5o-&usqp=CAU"></img>
+            Coupon:
+            <%= coupon.coupon.name %> <%= coupon.coupon.discount %>%
+          </li>
+          <% }) %>
+
+        </ul>
+      </div>
+      <div class="panel-footer">
+        <% totalPrices += order.cart.totalPrice%> <strong>Total Price: $<%= order.cart.totalPrice %><span class="pull-right"> Purchased at: <%=order.date%></span></strong>
+      </div>
     </div>
+    <% }) %>
+    <h4> Total Money Purchased in Site: <%= totalPrices%>$ </h4>
+
+  </div>
 </div>
-
-
 
 
 <%- include("partials/footer"); -%>

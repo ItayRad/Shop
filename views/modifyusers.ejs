@@ -20,27 +20,24 @@ if (newname === "")
 <h1>Modify user page</h1>
 
     <form onsubmit="check()" action="../update"  method="post" autocomplete="off">
-
-      <%allusers.forEach(function(user){ %> %>
-
-     <p >   <kbd> Name:</kbd>  <%= user.username %>
+<ul class="list-group">
+  <li class="list-group-item list-group-flush">
+     <kbd> Name:</kbd>  <%= user.username %>
+     </li>
       <input type="hidden" id="olduser" name="oldName" value="<%= user.username %>">
          <!-- <input type="text" required id="newuser"  placeholder="Enter a New Name" name="newName">if empty, stays the same </p>  -->
 
 <!-- <p> <kbd>Password:</kbd>
   <input type="text" placeholder="Enter a new Password" name="newPassword"> if empty, stays the same</p> -->
-  <p> <kbd>Permission:</kbd>
-    <input type="text"  placeholder="0 or 1" name="newPermission"> currently: <%=user.admin%> (0 - for normal, 1 for admin)</p>
-<%= user.email %>
-<%= user.password %>
-<%= user._id %>
+    <li class="list-group-item list-group-flush"> <kbd>Permission:</kbd>
+    <input type="text" width="5"  placeholder="0 or 1" name="newPermission"> currently: <%=user.admin%> (0 - for normal, 1 for admin)
+         </li>
+  <li class="list-group-item list-group-flush"><kbd> Email:</kbd><%= user.email %> <br>  </li>
+  <li class="list-group-item list-group-flush"><kbd> User ID:</kbd><%= user._id %>  </li>
 
-            <% }) %>
+<br>
 
 <button type="submit" onclick="check()"  class="btn btn-lg btn-primary">UPDATE</button>
 
     </form>
 <p id="errortext"></p>
-
-
-<a href="../"> Go Back </a>
