@@ -1,0 +1,37 @@
+<%- include("partials/admin"); -%>
+
+
+
+<div class="admin-dash" style="margin-top:50px;" id="tourpackages-carousel">
+
+  <table class="edit-page-table">
+
+    <td> Username </td>
+    <td> Email </td>
+    <td> Admin </td>
+    <td> Edit </td>
+    <td> Remove </td>
+    <%allusers.forEach(function(user){ %>
+    <tr>
+<% console.log(user); %>
+
+      <td> <%=user.username%></td>
+      <td> <%=user.email%> </td>
+          <td><%=user.admin%></td>
+      <td style="text-align:center;"> <a href="allusers/<%=user._id%>"> <i class="fas fa-edit fa-2x"></i> </a></td>
+      <td> <a href="deluser/<%=user._id%>"><i class="fas fa-trash-alt fa-2x"></i> </a> </td>
+    </tr>
+
+
+
+    <div class="caption">
+
+
+
+      <% }) %>
+  </table>
+
+  <div class="text-center">
+  </div>
+</div>
+<%- include("partials/footer"); -%>

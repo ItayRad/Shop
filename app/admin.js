@@ -53,7 +53,8 @@ router.get("/purchases", function(req, res) {
     var cart;
     orders.forEach(function(order) {
       cart = new Cart(order.cart);
-      order.items = cart.generateArray();
+      order.items = cart.generateArray();  // ADDS items array in order coupons
+      order.coupons = cart.generateCouponArray();        // ADDS coupons array in order coupons
     });
 
     res.render("purchases", {
@@ -338,7 +339,7 @@ router.get('/allusers', function(req, res) {
       console.log(err);
     } else {
       if (FoundUsers) {
-        res.render("allusers", {
+        res.render("userslist", {
           allusers: FoundUsers,
         });
       }
@@ -347,10 +348,10 @@ router.get('/allusers', function(req, res) {
 
 });
 // show modify users page with inputs to edit
-router.post('/allusers/:user', function(req, res) {
-  const moduser = req.body.modifyuser;
-  console.log(moduser);
-  User.find({
+router.get('/allusers/:id', function(req, res) {
+  const moduser = req.params.id;
+
+  User.findOne({
     _id: moduser
   }, function(err, user) {
     if (err) {
@@ -358,7 +359,7 @@ router.post('/allusers/:user', function(req, res) {
     } else {
 
       res.render("modifyusers", {
-        allusers: user,
+        user: user,
       });
     }
   });

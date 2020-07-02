@@ -18,7 +18,7 @@
                 <div class="panel-body">
                     <ul class="list-group">
                       <li class="list-group-item">
-                      <strong>Num:</strong> <%=msg.id%>
+                      <strong>Reference ID:</strong> <%=msg.id%>
                       </li>
 
                       <li class="list-group-item">
@@ -32,7 +32,7 @@
                                         <strong>Content:</strong>  <%= msg.message %>
 </li>
                                       <li class="list-group-item">
-  <strong>Answer:</strong>  <%= msg.answer %>
+  <strong>Response:</strong>  <%= msg.answer %>
                                         </li>
               <% if (msg.status==1)   {               %>         <li class="list-group-item">
     <strong>Closed by:</strong>  <%= msg.closedBy %>
@@ -49,9 +49,9 @@
                         <span class="pull-right">Time: <%= msg.date%></span></strong>
 
   <div class="answerclass" <% if (msg.status==1) { %> style="display:none" <% } %>>
-<strong>Answer:</strong>
+<strong>Response:</strong>
 <form method="post">
-  <textarea name='replyAnswer' placeholder='Enter your reply here' rows='3' cols='40' class='Commentary'>
+  <textarea name='replyAnswer' placeholder='Enter your reply here' rows='4' cols='40' class='Commentary'>
   </textarea>
 
 
@@ -60,7 +60,7 @@
 
 
   <input type="hidden" name="answerid" value="<%=msg._id%>">
-    <button class='send' type='submit'>REPLY & Close Complaint</submit>
+    <button style="position:relative;bottom:8px;"  class='send' type='submit'>REPLY</submit>
          </form>
          </div>
                 </div>
