@@ -5,7 +5,7 @@
 <div class="admin-dash" style="margin-top:50px;" id="tourpackages-carousel">
 
   <table class="edit-page-table">
-
+    <td> Id </td>
     <td> Username </td>
     <td> Email </td>
     <td> Admin </td>
@@ -13,11 +13,10 @@
     <td> Remove </td>
     <%allusers.forEach(function(user){ %>
     <tr>
-<% console.log(user); %>
-
+      <td> <%=user._id%> </td>
       <td> <%=user.username%></td>
       <td> <%=user.email%> </td>
-          <td><%=user.admin%></td>
+      <td><%=user.admin%></td>
       <td style="text-align:center;"> <a href="allusers/<%=user._id%>"> <i class="fas fa-edit fa-2x"></i> </a></td>
       <td> <a href="deluser/<%=user._id%>"><i class="fas fa-trash-alt fa-2x"></i> </a> </td>
     </tr>

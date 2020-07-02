@@ -98,7 +98,7 @@ router.post("/shopping-cart/coupon", function(req, res) {
     name: couponName
   }, function(err, found) {
     if (!found) { // if coupon does not exists
-      req.flash('badMsg', 'Coupon Does not Exists');
+      req.flash('badMsg', 'Coupon Does Not Exist');
       res.redirect('../shopping-cart');
     } else {
 
@@ -117,7 +117,7 @@ router.post("/shopping-cart/coupon", function(req, res) {
           res.redirect('../shopping-cart');
         }
       } if (!found.status) {
-        req.flash('badMsg', 'Coupon is not Active');
+        req.flash('badMsg', 'Coupon is Not Active');
         res.redirect('../shopping-cart');
 
       } else { // error DISABLED coupon

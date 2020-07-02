@@ -5,7 +5,7 @@
     <hr>
 
 
-    <% var totalPrice = 0; var count = 0; orders.forEach(function(order) {%>
+    <% var totalPrice = 0; var count = 0;  { orders.forEach(function(order) {%>
 
     <h2><a href="purchases/<%= order.name%>"><%= order.name%>'s</a> Purchase</h2>
 
@@ -39,7 +39,8 @@
       </div>
     </div>
     <% totalPrice+=order.cart.totalPrice; count++; }) %>
-    <h4> Total Money made in all sales: <%= totalPrice%>$</h4>
-     <h4>Total Purchases <%=count%>  </h4>
+    <h4> Total money made in all sales: <%= totalPrice%>$</h4>
+     <h4>Total purchases: <%=count%>  </h4>
+     <% } %>
   </div>
 </div>
