@@ -26,19 +26,12 @@
       <td class="tdprice"> <%=coupon.createdAt%></td>
       <td> <% if(coupon.status) {%>Active <% } else { %> Disabled <% } %> </td>
       <td>
-        <a href="/admin/coupons/toggle/<%=coupon._id%>">
-          Toggle</a></td>
 
+        <a href="/admin/coupons/toggle/<%=coupon._id%>">Toggle</a></td>
 
 
     </tr>
-
-
-
     <div class="caption">
-
-
-
       <% }) %>
   </table>
 

@@ -35,7 +35,7 @@ Hello <% if (user!=null) { %>
           <li class="list-group-item">
             <img style="width:25px;height:25px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR4WamHIB30JbebcCDr6s55ByhKipiEIFKfOAyhBc73IvDTL5o-&usqp=CAU"></img>
             Coupon:
-            <%= coupon.coupon.name %> <%= coupon.coupon.discount %>%
+              <%= coupon.coupon.name %>       <span class="badge " style="background-color:#add8e6;"> <%= coupon.coupon.discount %>%</span>
           </li>
           <% }) %>
 

@@ -86,13 +86,13 @@ th, td {
 }
 
 .footer-padding {
-	padding-bottom: 60px;
+	padding-bottom: 100px;
 }
 
 .footer {
 	position: absolute;
 	text-align: center;
-bottom:1;
+bottom:0;
 	width: 100%;
 	height: 60px;
 	background-color: #1abc9c;
