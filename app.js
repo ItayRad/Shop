@@ -150,9 +150,9 @@ app.post("/admin/site-settings", upload.single('avatar'), function(req, res) {
   });
 });
 
-// app.get("*",  function(req,res) {
-//   res.redirect("/");
-// });
+app.get("*",  function(req,res) {
+  res.redirect("/");
+});
 
 
 function isAdmin(req, res, next) {
