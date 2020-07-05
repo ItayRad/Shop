@@ -21,8 +21,10 @@ if (newname === "")
 
     <form onsubmit="check()" action="../update"  method="post" autocomplete="off">
 <ul class="list-group">
+  <li class="list-group-item list-group-flush"><kbd> User ID:</kbd>  <%= user._id %>  </li>
+
   <li class="list-group-item list-group-flush">
-     <kbd> Name:</kbd>  <%= user.username %>
+     <kbd> Name:</kbd>   <%= user.username %>
      </li>
       <input type="hidden" id="olduser" name="oldName" value="<%= user.username %>">
          <!-- <input type="text" required id="newuser"  placeholder="Enter a New Name" name="newName">if empty, stays the same </p>  -->
@@ -32,8 +34,7 @@ if (newname === "")
     <li class="list-group-item list-group-flush"> <kbd>Permission:</kbd>
     <input type="text" width="5"  placeholder="0 or 1" name="newPermission"> currently: <%=user.admin%> (0 - for normal, 1 for admin)
          </li>
-  <li class="list-group-item list-group-flush"><kbd> Email:</kbd><%= user.email %> <br>  </li>
-  <li class="list-group-item list-group-flush"><kbd> User ID:</kbd><%= user._id %>  </li>
+  <li class="list-group-item list-group-flush"><kbd> Email:</kbd> <%= user.email %> <br>  </li>
 
 <br>
 

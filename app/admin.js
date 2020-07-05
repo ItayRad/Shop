@@ -75,6 +75,7 @@ router.get("/purchases/:user", function(req, res) {
     orders.forEach(function(order) {
       cart = new Cart(order.cart);
       order.items = cart.generateArray();
+      order.coupons = cart.generateCouponArray();
     });
 
     res.render("purchases", {
