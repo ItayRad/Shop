@@ -87,6 +87,24 @@ router.get("/purchases/:user", function(req, res) {
   });
 });
 
+router.get('/purchases/shipped/:id', function(req, res) {
+  var orderID = req.params.id;
+
+  Order.findOne({_id: orderID}, function(err, found) {
+
+    if (found)
+    {
+
+        found.shipped = true;
+        found.save();
+      }
+      });
+  res.redirect("/admin/purchases/");
+});
+
+
+
+//////////// ADD PRODUCTS
 router.get("/sell", function(req, res) {
   res.render("sell");
 });
@@ -157,7 +175,7 @@ router.post('/edit/:id', function(req, res) {
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var time = (today.getHours() < 10 ? "0" : "") + today.getHours() + ":" + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes() + ":" + (today.getSeconds() < 10 ? "0" : "") + today.getSeconds();
   today = dd + '/' + mm + '/' + yyyy + " " + time;
   var newinfo = {
     imagePath: imgPath,

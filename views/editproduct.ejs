@@ -16,13 +16,13 @@
     <div class="form-group">
       <input type="hidden" name="uid" value="<%=product._id%>">
       <label>Image (link to an image)</label>
-      <input type="text" class="form-control" name="imgPath" value="<%=product.imagePath %>">
+      <input required type="text" class="form-control" name="imgPath" value="<%=product.imagePath %>">
       <label>Title</label>
-      <input class="form-control" type="text" name="title" value="<%=product.title%>">
+      <input required class="form-control" type="text" name="title" value="<%=product.title%>">
       <label>Description</label>
-      <input type="text" maxlength="150" class="form-control" name="description" value="<%=product.description%>">
+      <input required type="text" maxlength="150" class="form-control" name="description" value="<%=product.description%>">
       <label>Price($)</label>
-      <input type="number" class="form-control" placeholder="$ only" name="price" value="<%=product.price%>">
+      <input required type="number" class="form-control" placeholder="$ only" name="price" value="<%=product.price%>">
       <label>Category</label>
       <select class="form-control" name="itemCategory">
 <option value="<%=product.category%>">          <%=product.category%>  </option>
@@ -32,9 +32,9 @@
 <option value="Shooting">Shooting</option>
         </select>
         <label>Quantity</label>
-        <input type="number" class="form-control" placeholder="qty" name="itemQuantity" value="<%=product.quantity%>" >
+        <input required type="number" class="form-control" placeholder="qty" name="itemQuantity" value="<%=product.quantity%>" >
                 <label>Status</label>
-        <select class="form-control" name="itemStatus">
+        <select required class="form-control" name="itemStatus">
           <option value="1">Active</option>
           <option value="0" <% if(product.status == 0){ %> selected="selected" <% } %>>Disabled</option>
 

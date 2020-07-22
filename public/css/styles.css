@@ -2,7 +2,7 @@ html {
   min-height: 100%;
   position: relative;
   z-index: 0;
-  background-color: #FAFAFA;
+
 }
 
 body {
@@ -256,4 +256,12 @@ z-index:99999;
 }
 .tt-suggestion p {
 	margin: 0;
+}
+
+.shipMark {
+  position:absolute;
+  overflow:auto;
+  right:75px;
+  top:45;
+
 }

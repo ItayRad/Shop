@@ -15,7 +15,7 @@ Order.find({user:req.user}, function(err,orders){
   orders.forEach(function(order){
     cart = new Cart(order.cart);
     order.items = cart.generateArray();    // change cart information into array
-    order.coupons = cart.generateCouponArray();
+    order.coupons = cart.generateCouponArray(); // change coupon cart information into array
   });
 
   res.render("profile", {title:"My Profile", user:req.user, orders:orders, req:req});

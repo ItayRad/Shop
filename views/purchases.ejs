@@ -1,5 +1,5 @@
 <%- include("partials/admin"); -%>
-<div class="row admin-dash">
+
   <div class="col-md-8 col-md-offset-2">
     <h1>Purchases</h1>
     <hr>
@@ -32,18 +32,36 @@
           <% }) %>
 
 
-          <% }   }) %>
+
+
 
         </ul>
       </div>
+
       <div class="panel-footer">
-        <strong>Total Price: $<%= order.cart.totalPrice %><span class="pull-right"> Purchased at: <%=order.date%></span></strong>
+
+        <strong>Total Price: $<%= order.cart.totalPrice %>
+              <%  if(order.shipped) { %> <span style="margin-left:100px;color:#0275d8;">Shipped</span> <% } else { %>
+
+                              <a href="purchases/shipped/<%=order._id%>" style="margin-left:100px;" class="btn btn-sm btn-primary" > Mark As Shipped </a> <% } %>
+
+
+
+          <span class="pull-right">
+
+             Purchased at: <%=order.date%></span></strong>
       </div>
     </div>
+
+              <% }   }) %>
     <% totalPrice+=order.cart.totalPrice; count++; }) %>
     <h4> Total money made in all sales: <%= totalPrice%>$</h4>
      <h4>Total purchases: <%=count%>  </h4>
      <% } %>
   </div>
-</div>
+
+
+
+
+
 <%- include("partials/footer"); -%>

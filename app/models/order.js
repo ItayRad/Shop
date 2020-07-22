@@ -11,7 +11,8 @@ var schema = new Schema({
     address: {type: String, required: true},
     name: {type: String, required: true},
     paymentId: {type: String, required: true},
-    date: {type: String}
+    date: {type: String,},
+    shipped:{type:Boolean,default:false}
   }
 );
 //schema.plugin(AutoIncrement, {inc_field: 'id'});

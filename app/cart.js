@@ -18,7 +18,7 @@ router.get("/shopping-cart", function(req, res) {
     });
   }
   var cart = new Cart(req.session.cart);
-  console.log(cart);
+
 
   res.render("shopping-cart", {
     products: cart.generateArray(),
@@ -62,9 +62,6 @@ router.get("/removeOne-from-cart/:id", function(req, res) {
   var productId = req.params.id;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
   Product.findById(productId, function(err, product) {
-    if (err) {
-      console.log(err);
-    }
     cartqty = cart.removeOne(product, product.id);
     if (cartqty >= 1) {
       req.flash('goodMsg', 'Successfully removed 1 from cart');
@@ -104,9 +101,14 @@ router.post("/shopping-cart/coupon", function(req, res) {
 
       if (found.status) // if coupon is ENABLED
       {
-        if (getCurrentDate() < found.validatetill) // validate coupon with date
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd
+
+        if (today < found.validatetill) // validate coupon with date
         {
-          //this.totalPrice = this.subTotalPrice * (storedItem.coupon.discount / 100);
           cart.couponAdd(found, found.id);
 
           req.session.cart = cart;
