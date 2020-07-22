@@ -9,7 +9,7 @@
     <h2> Edit Product</h2>
     <img class="imgexample" src="<%=product.imagePath %>">
 </div>
-</div>
+
 <div class="admin-dash" style="margin-top:50px;" id="tourpackages-carousel">
 
   <form class="" action="/admin/edit/<%=product.id%>" method="post">
@@ -21,7 +21,7 @@
       <input class="form-control" type="text" name="title" value="<%=product.title%>">
       <label>Description</label>
       <input type="text" maxlength="150" class="form-control" name="description" value="<%=product.description%>">
-      <label>Price</label>
+      <label>Price($)</label>
       <input type="number" class="form-control" placeholder="$ only" name="price" value="<%=product.price%>">
       <label>Category</label>
       <select class="form-control" name="itemCategory">
@@ -46,7 +46,7 @@
     <button class="btn btn-primary" type="submit" name="button">Update</button>
   </form>
 
-  <div class="text-center">
-  </div>
 </div>
+</div>
+
 <%- include("partials/footer"); -%>

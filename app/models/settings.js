@@ -12,6 +12,7 @@ today = mm + '/' + dd + '/' + yyyy;
 siteSchema = new Schema({
   logo: { type: String},
   date: { type:String}
+  
 });
 
 //siteSchema.plugin(AutoIncrement, {inc_field: 'id'});

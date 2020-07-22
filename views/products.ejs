@@ -2,46 +2,73 @@
 <p style="margin-top:35px;" class="alert alert-success <%if (!goodMsg ) { %> hidden <%}%>  ">
 <%=goodMsg%>
 
-<i class="fas fa-check"></i></p>
-    <div class="container d-flex justify-content-center" style="margin-top:50px;" id="tourpackages-carousel">
 
-<div class="categories">
+  <!-- <script  type=" text/javascript" src="/javascripts/typeahead.min.js">
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
 
-</div>
-      <div class="row">
-      <%products.forEach(function(product){ %>
-          <% if (product.status == 1) { %>
-        <div class="myproducts col-xs-18 col-sm-6 col-md-3">
-          <div class="thumbnail">
-            <img class="productImg" src="<%=product.imagePath %>" alt="">
-              <div class="caption">
+      $('input.typeahead').typeahead({
+        name: 'products',
+        remote: 'products/search?key=%QUERY',
+        limit: 5,
 
-                <h4><%=product.title%></h4>
-                <p><%= product.description%></p>
-                <p>Price:<%= product.price%>$</p>
+      }).bind('typeahead:selected', function(ev, suggestion) {
 
-                 <% if (isAuthenticated) { if (isAdmin) { %> <p>quantity:<%= product.quantity%></p><% }} %>
-                <div class="bottom-align-text col-sm-10">
-          <% if (product.quantity>0) { %>     <a href="/add-to-cart/<%=product.id%>" class="btn btn-info btn-xs " role="button">Add to Cart<i class="fas fa-cart-plus specialfas"></i></a>
-           <% } else { %>
-            <strike>Out of Stock</strike>  <% } %>
+        window.location.href = "/" + suggestion.value;
+      });
+
+    });
+
+  </script> -->
+  <i class="fas fa-check"></i>
+</p>
+<div class="container d-flex justify-content-center" style="margin-top:50px;" id="tourpackages-carousel">
+
+
+  <!-- <div class="bs-example">
+<input type="text" name="typeahead" class="state typeahead tt-query" autocomplete="off" spellcheck="false" placeholder="Search">
+  </div> -->
+
+
+
+  <div class="row">
+    <%products.forEach(function(product){ %>
+    <% if (product.status == 1) { %>
+    <div class="myproducts col-xs-18 col-sm-6 col-md-3">
+      <div class="thumbnail">
+        <img class="productImg" src="<%=product.imagePath %>" alt="">
+        <div class="caption">
+
+          <h4><%=product.title%></h4>
+          <p><%= product.description%></p>
+          <p>Price:<%= product.price%>$</p>
+
+          <% if (isAuthenticated) { if (isAdmin) { %> <p>quantity:<%= product.quantity%></p><% }} %>
+          <div class="bottom-align-text col-sm-10">
+            <% if (product.quantity>0) { %> <a href="/add-to-cart/<%=product.id%>" class="btn btn-info btn-xs " role="button">Add to Cart<i class="fas fa-cart-plus specialfas"></i></a>
+            <% } else { %>
+            <strike>Out of Stock</strike> <% } %>
             <!--     <% if (user == 1) { %> <a href="/removeProduct/<%=product.id%>" class="btn btn-danger btn-xs" role="button">REMOVE</a> <% } %> %> -->
-           </div>
-            </div>
           </div>
         </div>
-
-        <% }}) %>
-         </div><!-- End row -->
-
-      <div>
-
       </div>
-    </div><!-- End container -->
+    </div>
+
+    <% }}) %>
+  </div><!-- End row -->
+
+  <div>
+
+  </div>
+</div><!-- End container -->
 
 
 
 <div class="text-center">
   <a class="cart-btn btn btn-success btn-lg text-center" href="/shopping-cart">MY CART<i class="fas fa-shopping-cart specialfas"></i> </a>
 </div>
+
+
+
 <%- include("partials/footer"); -%>

@@ -33,4 +33,20 @@ else { /////// checks if user is not logged in
 
 });
 
+router.get('/search', function(req, res) {
+  Product.find({
+      title: {
+        $regex: '.*' + req.query.key + '.*'
+      }
+    },
+    function(err, rows, fields) {
+      if (err) throw err;
+      var data = [];
+      for (i = 0; i < rows.length; i++) {
+        data.push(rows[i].title);
+      }
+      res.end(JSON.stringify(data));
+    }).limit(5);
+});
+
 module.exports = router;
