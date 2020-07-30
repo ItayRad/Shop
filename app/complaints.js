@@ -30,7 +30,8 @@ router.post("/", function(req, res) {
       var yyyy = today.getFullYear();
       var time = (today.getHours() < 10 ? "0" : "") + today.getHours() + ":" + (today.getMinutes() < 10 ? "0" : "") + today.getMinutes() + ":" + (today.getSeconds() < 10 ? "0" : "") + today.getSeconds();
       today = mm + '/' + dd + '/' + yyyy;
-User.findOne({username:req.user.username}, function(err,foundUser){
+if (req.user)
+{User.findOne({username:req.user.username}, function(err,foundUser){
       var newMsg = new Message({
         user: req.user.username,
         email: foundUser.email,
@@ -51,12 +52,12 @@ User.findOne({username:req.user.username}, function(err,foundUser){
 
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true, // use SSL
+      host: 'smtp.ethereal.email',
+      port: 587,
+
       auth: {
           user: process.env.GMAIL_USER,
-          pass: process.env.GMAIL_PASS
+          pass: process.env.PASS,
       }
 });
 let from = '"Shop Site noreply" <noreply@ShopSite.com>';
@@ -82,8 +83,10 @@ let message = "Complaint received from user: " + req.user.username + "\nEmail: "
         res.render("complaints", {
           succesMsg: succesMsg
         });
+
 });
 });
+}
 });
 
 
