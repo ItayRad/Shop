@@ -10,8 +10,9 @@ let router = express.Router({ mergeParams: true });
 
 
 function con(mongoose) {
+  var url = "mongodb+srv://admin-itay:Test123@cluster0-k71pt.mongodb.net/shopDB";
 //mongoose.connect("mongodb://localhost:27017/shopDB", {    // for local development
-mongoose.connect(process.env.DB_URL, { // for public with .env
+mongoose.connect(url, { // for public with .env
 
     useNewUrlParser: true,
   }, function(err) {
