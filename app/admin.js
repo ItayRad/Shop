@@ -15,6 +15,8 @@ const Product = require("./models/product.js");
 const Order = require("./models/order.js");
 const Cart = require("./models/cart");
 const Coupon = require("./models/coupon");
+const Ip = require("./models/ip.js");
+
 var helper = require("./functions.js");
 var path = require('path');
 var storage = multer.diskStorage({
@@ -343,12 +345,14 @@ router.get("/msg-del/:id", function(req, res) {
 // site settings
 router.get("/site-settings", function(req, res) {
   var errorMsg = "";
+Site.find({}, function(err, foundsettings) {
 
   res.render("./site-settings", {
-    errorMsg: errorMsg
+    errorMsg: errorMsg,
+    counter:foundsettings.counter,
   });
 });
-
+});
 
 
 //admin all users page
@@ -388,17 +392,12 @@ router.get('/allusers/:id', function(req, res) {
 router.post('/update', function(req, res) {
   const oldName = req.body.oldName;
   const name = req.body.newName;
-  //const newName = name.charAt(0).toUpperCase() + name.slice(1); // in register it saves only NOT capitalized
-  // const newName = name.toLowerCase();
-  //const newPassword = req.body.newPassword;
   const newPermission = req.body.newPermission;
-  // if (req.body.newPassword == "")
-  // {
+
   User.findOneAndUpdate({
     username: oldName
   }, {
-    //username: newName,
-    //  password: newPassword, need to find way to modify password and encrypt it
+
     admin: newPermission
   }, function(err) {
     if (err) {
@@ -409,24 +408,7 @@ router.post('/update', function(req, res) {
       res.redirect("/");
     }
   });
-  // }
-  // // else{
-  //   User.findOneAndUpdate({
-  //     username: oldName
-  //   }, {
-  //     username: newName,
-  //     //  password: newPassword, need to find way to modify password and encrypt it
-  //     admin:newPermission
-  //   }, function(err) {
-  //     if (err) {
-  //       res.render("failed.ejs", {
-  //         error: "Username is Taken, Please choose Another Name"
-  //       });
-  //     } else {
-  //       res.redirect("/");
-  //     }
-  //   });
-  // // }
+
 });
 
 // delete users button
@@ -444,7 +426,20 @@ router.post("/deluser", function(req, res, next) {
   });
 });
 
-
+//admin all users ip page
+router.get('/show/ips', function(req, res) {
+  Ip.find({}, function(err, FoundUsers) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (FoundUsers) {
+        res.render("ips", {
+          ips: FoundUsers,
+        });
+      }
+    }
+  });
+});
 
 
 module.exports = router;

@@ -4,11 +4,16 @@ var router = express.Router();
 const mongoose = require('mongoose');
 
 var db = require("./connection.js");
-var User = require("./models/user.js");
-const bodyParser = require("body-parser");
 
+const bodyParser = require("body-parser");
+var Ip = require("./models/ip.js");
 
 router.get('/', (req, res) => {
+  var newIP = new Ip({
+    value:req.ip,
+  });
+  newIP.save();
+
   res.redirect("/products");
 });
 

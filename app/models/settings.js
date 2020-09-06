@@ -11,8 +11,8 @@ today = mm + '/' + dd + '/' + yyyy;
 
 siteSchema = new Schema({
   logo: { type: String},
-  date: { type:String}
-  
+  date: { type:String},
+  counter: {type:Number, default:0}
 });
 
 //siteSchema.plugin(AutoIncrement, {inc_field: 'id'});

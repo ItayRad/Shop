@@ -1,0 +1,30 @@
+<%- include("partials/admin"); -%>
+
+
+
+<div class="admin-dash" style="margin-top:50px;" id="tourpackages-carousel">
+
+  <table class="edit-page-table" ">
+    <td> Id </td>
+    <td> IP </td>
+
+    <%ips.forEach(function(Found){ %>
+    <tr>
+      <td > <%=Found.ipid%> </td>
+<td > <%=Found.value%> </td>
+
+    </tr>
+
+
+
+    <div class="caption">
+
+
+
+      <% }) %>
+  </table>
+
+  <div class="text-center">
+  </div>
+</div>
+<%- include("partials/footer"); -%>

@@ -57,7 +57,7 @@ if (req.user)
 
       auth: {
           user: process.env.GMAIL_USER,
-          pass: process.env.PASS,
+          pass: process.env.GMAIL_PASS,
       }
 });
 let from = '"Shop Site noreply" <noreply@ShopSite.com>';
