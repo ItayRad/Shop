@@ -20,20 +20,20 @@ const Ip = require("./models/ip.js");
 var helper = require("./functions.js");
 var path = require('path');
 var storage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: function (req, file, cb) {
     cb(null, './public/uploads');
   },
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now());
   }
 });
 
 
-router.get("/", function(req, res) {
-  User.countDocuments({}, function(err, users) {
-    Product.countDocuments({}, function(err, products) {
-      Message.countDocuments({}, function(err, msgs) {
-        Order.countDocuments({}, function(err, purchases) {
+router.get("/", function (req, res) {
+  User.countDocuments({}, function (err, users) {
+    Product.countDocuments({}, function (err, products) {
+      Message.countDocuments({}, function (err, msgs) {
+        Order.countDocuments({}, function (err, purchases) {
           res.render("admin", {
             users: users,
             products: products,
@@ -47,13 +47,13 @@ router.get("/", function(req, res) {
 });
 
 //history of purchases
-router.get("/purchases", function(req, res) {
-  Order.find({}, function(err, orders) {
+router.get("/purchases", function (req, res) {
+  Order.find({}, function (err, orders) {
     if (err) {
       return res.write("error finding orders");
     }
     var cart;
-    orders.forEach(function(order) {
+    orders.forEach(function (order) {
       cart = new Cart(order.cart);
       order.items = cart.generateArray();  // ADDS items array in order coupons
       order.coupons = cart.generateCouponArray();        // ADDS coupons array in order coupons
@@ -66,15 +66,15 @@ router.get("/purchases", function(req, res) {
     });
   });
 });
-router.get("/purchases/:user", function(req, res) {
+router.get("/purchases/:user", function (req, res) {
   Order.find({
     name: req.params.user
-  }, function(err, orders) {
+  }, function (err, orders) {
     if (err) {
       return res.write("error finding orders");
     }
     var cart;
-    orders.forEach(function(order) {
+    orders.forEach(function (order) {
       cart = new Cart(order.cart);
       order.items = cart.generateArray();
       order.coupons = cart.generateCouponArray();
@@ -89,29 +89,28 @@ router.get("/purchases/:user", function(req, res) {
   });
 });
 
-router.get('/purchases/shipped/:id', function(req, res) {
+router.get('/purchases/shipped/:id', function (req, res) {
   var orderID = req.params.id;
 
-  Order.findOne({_id: orderID}, function(err, found) {
+  Order.findOne({ _id: orderID }, function (err, found) {
 
-    if (found)
-    {
+    if (found) {
 
-        found.shipped = true;
-        found.save();
-      }
-      });
+      found.shipped = true;
+      found.save();
+    }
+  });
   res.redirect("/admin/purchases/");
 });
 
 
 
 //////////// ADD PRODUCTS
-router.get("/sell", function(req, res) {
+router.get("/sell", function (req, res) {
   res.render("sell");
 });
 
-router.post('/sell', function(req, res) {
+router.post('/sell', function (req, res) {
   var imgPath = req.body.imgPath;
   var itemTitle = req.body.title;
   var itemCategory = req.body.itemCategory;
@@ -127,16 +126,17 @@ router.post('/sell', function(req, res) {
     description: itemDescription,
     price: itemPrice,
     status: itemStatus,
+    createdBy: req.user.username
   });
 
   editProduct.save();
   res.redirect("/admin/edit");
 });
 ////////.........edit products.........///////
-router.get("/edit", function(req, res) {
+router.get("/edit", function (req, res) {
   var goodMsg = req.flash("goodMsg")[0];
   var successcart = req.flash("successcart")[0];
-  Product.find({}, function(err, found) {
+  Product.find({}, function (err, found) {
     res.render("productslist", {
       products: found,
       successCart: successcart,
@@ -146,12 +146,12 @@ router.get("/edit", function(req, res) {
   });
 });
 
-router.get("/edit/:id", function(req, res) {
+router.get("/edit/:id", function (req, res) {
   var goodMsg = req.flash("goodMsg")[0];
   var successcart = req.flash("successcart")[0];
   Product.findById({
     _id: req.params.id
-  }, function(err, found) {
+  }, function (err, found) {
 
     res.render("editproduct", {
       product: found,
@@ -164,7 +164,7 @@ router.get("/edit/:id", function(req, res) {
 
 
 
-router.post('/edit/:id', function(req, res) {
+router.post('/edit/:id', function (req, res) {
   var itemid = req.body.uid;
   var imgPath = req.body.imgPath;
   var itemTitle = req.body.title;
@@ -192,7 +192,7 @@ router.post('/edit/:id', function(req, res) {
 
   Product.findOneAndUpdate({
     _id: itemid
-  }, newinfo, function(err) {});
+  }, newinfo, function (err) { });
 
 
   res.redirect("/admin/edit");
@@ -202,10 +202,10 @@ router.post('/edit/:id', function(req, res) {
 
 ////////////.........coupons..........///////
 
-router.get("/coupons/", function(req, res) {
+router.get("/coupons/", function (req, res) {
 
   var goodMsg = req.flash("goodMsg")[0];
-  Coupon.find({}, function(err, found) {
+  Coupon.find({}, function (err, found) {
 
     res.render("coupons", {
       coupons: found,
@@ -214,13 +214,13 @@ router.get("/coupons/", function(req, res) {
   });
 });
 
-router.get("/coupons/add", function(req, res) {
+router.get("/coupons/add", function (req, res) {
 
   res.render("addcoupon.ejs", {});
 });
 
 
-router.post('/coupons/add', function(req, res, next) {
+router.post('/coupons/add', function (req, res, next) {
   var goodMsg = req.flash("goodMsg")[0];
   const name = req.body.cname;
   const discount = req.body.discount;
@@ -240,17 +240,16 @@ router.post('/coupons/add', function(req, res, next) {
 
   Coupon.findOne({
     name: name
-  }, function(err, found) {
+  }, function (err, found) {
 
-if (!found)
-{
-    newCoupon.save();
-    req.flash('goodMsg', 'Coupon Saved!');
+    if (!found) {
+      newCoupon.save();
+      req.flash('goodMsg', 'Coupon Saved!');
 
-}
-else{
+    }
+    else {
       req.flash('goodMsg', 'Coupon with that name already exists');
-}
+    }
   });
 
 
@@ -258,46 +257,46 @@ else{
   res.redirect("/admin/coupons/");
 });
 
-router.get('/coupons/toggle/:id', function(req, res, next) {
+router.get('/coupons/toggle/:id', function (req, res, next) {
   var couponID = req.params.id;
   Coupon.findOne({
     _id: couponID
-  }, function(err, found) {
+  }, function (err, found) {
 
 
-      if (found.status) {
-        found.status = false;
-        found.save();
-      } else {
-        found.status = true;
-        found.save();
-      }
+    if (found.status) {
+      found.status = false;
+      found.save();
+    } else {
+      found.status = true;
+      found.save();
+    }
 
   });
   res.redirect("/admin/coupons/");
 });
 
 ////////.........delete products.........///////
-router.get("/removeProduct/:id", function(req, res) {
+router.get("/removeProduct/:id", function (req, res) {
   var productId = req.params.id;
   var product = new Product(req.session.cart ? req.session.cart : {});
 
   Product.findOneAndRemove({
     _id: productId
-  }, function(err, product) {
+  }, function (err, product) {
     res.redirect("/admin/edit");
   });
 });
 
 
 /////............admin messages.........////////
-router.get("/messages", function(req, res) {
+router.get("/messages", function (req, res) {
   var succesMsg = "";
   Message.find({}, null, {
     sort: {
       'date': -1
     }
-  }, function(err, foundMsgs) {
+  }, function (err, foundMsgs) {
     res.render("messages", {
       foundMsgs: foundMsgs,
       succesMsg: succesMsg
@@ -306,7 +305,7 @@ router.get("/messages", function(req, res) {
 
 });
 
-router.post("/messages", function(req, res) {
+router.post("/messages", function (req, res) {
   var succesMsg = "Succesfully Sent mail";
   /// send email to %t with the answer
   answer = req.body.replyAnswer;
@@ -317,7 +316,7 @@ router.post("/messages", function(req, res) {
   // mark _id as "taken care of" // 1 is taken care of
   Message.findOne({
     _id: answerid
-  }, function(err, found) {
+  }, function (err, found) {
     found.status = 1; // 1 is taken care of
     found.answer = answer;
     found.closedBy = req.user.username;
@@ -327,12 +326,12 @@ router.post("/messages", function(req, res) {
 });
 
 
-router.get("/msg-del/:id", function(req, res) {
+router.get("/msg-del/:id", function (req, res) {
   var succesMsg = "Succesfully Deleted ";
   Message.findOneAndDelete({
     _id: req.params.id
-  }, function(err) {
-    Message.find({}, function(err, foundMsgs) {
+  }, function (err) {
+    Message.find({}, function (err, foundMsgs) {
       res.render("messages", {
         foundMsgs: foundMsgs,
         succesMsg: succesMsg
@@ -343,21 +342,21 @@ router.get("/msg-del/:id", function(req, res) {
 });
 
 // site settings
-router.get("/site-settings", function(req, res) {
+router.get("/site-settings", function (req, res) {
   var errorMsg = "";
-Site.find({}, function(err, foundsettings) {
+  Site.find({}, function (err, foundsettings) {
 
-  res.render("./site-settings", {
-    errorMsg: errorMsg,
-    counter:foundsettings.counter,
+    res.render("./site-settings", {
+      errorMsg: errorMsg,
+      counter: foundsettings.counter,
+    });
   });
-});
 });
 
 
 //admin all users page
-router.get('/allusers', function(req, res) {
-  User.find({}, function(err, FoundUsers) {
+router.get('/allusers', function (req, res) {
+  User.find({}, function (err, FoundUsers) {
     if (err) {
       console.log(err);
     } else {
@@ -371,12 +370,12 @@ router.get('/allusers', function(req, res) {
 
 });
 // show modify users page with inputs to edit
-router.get('/allusers/:id', function(req, res) {
+router.get('/allusers/:id', function (req, res) {
   const moduser = req.params.id;
 
   User.findOne({
     _id: moduser
-  }, function(err, user) {
+  }, function (err, user) {
     if (err) {
       console.log(err);
     } else {
@@ -389,7 +388,7 @@ router.get('/allusers/:id', function(req, res) {
 
 });
 //update button to modify users
-router.post('/update', function(req, res) {
+router.post('/update', function (req, res) {
   const oldName = req.body.oldName;
   const name = req.body.newName;
   const newPermission = req.body.newPermission;
@@ -399,7 +398,7 @@ router.post('/update', function(req, res) {
   }, {
 
     admin: newPermission
-  }, function(err) {
+  }, function (err) {
     if (err) {
       res.render("failed.ejs", {
         error: "Username is Taken, Please choose Another Name"
@@ -412,11 +411,11 @@ router.post('/update', function(req, res) {
 });
 
 // delete users button
-router.post("/deluser", function(req, res, next) {
+router.post("/deluser", function (req, res, next) {
   const deluser = req.body.deluser;
   User.deleteOne({
     _id: deluser
-  }, function(err, user) {
+  }, function (err, user) {
     if (err) {
       console.log(err);
     } else {
@@ -427,8 +426,8 @@ router.post("/deluser", function(req, res, next) {
 });
 
 //admin all users ip page
-router.get('/show/ips', function(req, res) {
-  Ip.find({}, function(err, FoundUsers) {
+router.get('/show/ips', function (req, res) {
+  Ip.find({}, function (err, FoundUsers) {
     if (err) {
       console.log(err);
     } else {

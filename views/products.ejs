@@ -1,74 +1,63 @@
 <%- include("partials/header"); -%>
-<p style="margin-top:35px;" class="alert alert-success <%if (!goodMsg ) { %> hidden <%}%>  ">
-<%=goodMsg%>
+  <p style="margin-top:35px;" class="alert alert-success <%if (!goodMsg ) { %> hidden <%}%>  ">
+    <%=goodMsg%>
 
+      <i class="fas fa-check"></i>
+  </p>
 
-  <!-- <script  type=" text/javascript" src="/javascripts/typeahead.min.js">
-  </script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-
-      $('input.typeahead').typeahead({
-        name: 'products',
-        remote: 'products/search?key=%QUERY',
-        limit: 5,
-
-      }).bind('typeahead:selected', function(ev, suggestion) {
-
-        window.location.href = "/" + suggestion.value;
-      });
-
-    });
-
-  </script> -->
-  <i class="fas fa-check"></i>
-</p>
-<div class="container d-flex justify-content-center" style="margin-top:50px;" id="tourpackages-carousel">
-
-
-  <!-- <div class="bs-example">
-<input type="text" name="typeahead" class="state typeahead tt-query" autocomplete="off" spellcheck="false" placeholder="Search">
-  </div> -->
+  <div class="container d-flex justify-content-center" style="margin-top:50px;" id="tourpackages-carousel">
 
 
 
-  <div class="row">
-    <%products.forEach(function(product){ %>
-    <% if (product.status == 1) { %>
-    <div class="myproducts col-xs-18 col-sm-6 col-md-3">
-      <div class="thumbnail">
-        <img class="productImg" src="<%=product.imagePath %>" alt="">
-        <div class="caption">
+    <div class="row">
+      <%products.forEach(function(product){ %>
+        <% if (product.status==1) { %>
+          <div class="myproducts col-xs-18 col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <img class="productImg" style="border-bottom: 1px solid black" src="<%=product.imagePath %>" alt="">
 
-          <h4><%=product.title%></h4>
-          <p><%= product.description%></p>
-          <p>Price:<%= product.price%>$</p>
+              <div class="caption">
 
-          <% if (isAuthenticated) { if (isAdmin) { %> <p>quantity:<%= product.quantity%></p><% }} %>
-          <div class="bottom-align-text col-sm-10">
-            <% if (product.quantity>0) { %> <a href="/add-to-cart/<%=product.id%>" class="btn btn-info btn-xs " role="button">Add to Cart<i class="fas fa-cart-plus specialfas"></i></a>
-            <% } else { %>
-            <strike>Out of Stock</strike> <% } %>
-            <!--     <% if (user == 1) { %> <a href="/removeProduct/<%=product.id%>" class="btn btn-danger btn-xs" role="button">REMOVE</a> <% } %> %> -->
+                <h4>
+                  <%=product.title%>
+                </h4>
+                <p>
+                  <%= product.description%>
+                </p>
+                <p>Price:<%= product.price%>$</p>
+
+                <% if (isAuthenticated) { if (isAdmin) { %>
+                  <p>quantity:<%= product.quantity%>
+                  </p>
+                  <% }} %>
+                    <div class="bottom-align-text col-sm-10">
+                      <% if (product.quantity>0) { %> <a href="/add-to-cart/<%=product.id%>"
+                          class="btn btn-info btn-xs " role="button">Add to Cart<i
+                            class="fas fa-cart-plus specialfas"></i></a>
+                        <% } else { %>
+                          <strike>Out of Stock</strike>
+                          <% } %>
+                            <!--     <% if (user == 1) { %> <a href="/removeProduct/<%=product.id%>" class="btn btn-danger btn-xs" role="button">REMOVE</a> <% } %> %> -->
+                    </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+
+          <% }}) %>
+    </div><!-- End row -->
+
+    <div>
+
     </div>
+  </div><!-- End container -->
 
-    <% }}) %>
-  </div><!-- End row -->
 
-  <div>
 
+  <div class="text-center">
+    <a class="cart-btn btn btn-success btn-lg text-center" href="/shopping-cart">MY CART<i
+        class="fas fa-shopping-cart specialfas"></i> </a>
   </div>
-</div><!-- End container -->
 
 
 
-<div class="text-center">
-  <a class="cart-btn btn btn-success btn-lg text-center" href="/shopping-cart">MY CART<i class="fas fa-shopping-cart specialfas"></i> </a>
-</div>
-
-
-
-<%- include("partials/footer"); -%>
+  <%- include("partials/footer"); -%>
