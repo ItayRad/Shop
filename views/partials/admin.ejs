@@ -1,37 +1,62 @@
 <%- include("./header") -%>
 
 
-<head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="/css/admin-styles.css">
-<script src="/javascripts/main.js" charset="utf-8"></script>
-
-
-</head>
-<div class="mySidebar">
-<div style="position:absolute;left:0px;width:15%">
- <button style="margin-top:-75px;  background-color: #222; color:White" class="btn btn-lg " onclick="sidebar_toggle()">Admin Panel☰</button>
- </div>
-
-  <div class="border-right-1" style="display:none;left:0px;" id="mySidebar">
+    <link rel="stylesheet" href="/css/admin-styles.css">
+    <script src="/javascripts/main.js" charset="utf-8"></script>
 
 
+  </head>
+  <div class="mySidebar">
 
-<ul id="admin-list" class="list-group">
-<a   href="/admin"><li class="list-group-item">DASH BOARD<span style="margin-left:1px;"  class="pull-right   showopacity glyphicon glyphicon-home"></span></li></a>
-<a  href="/admin/purchases"><li class="list-group-item">PURCHASES<span style="margin-right:4px;" class="pull-right   showopacity fab fa-product-hunt"></span></li></a>
-<a  href="/admin/sell"><li class="list-group-item">ADD PRODUCT<span  class="pull-right   showopacity glyphicon glyphicon-plus"></span></li></a>
-<a  href="/admin/edit"><li class="list-group-item">EDIT PRODUCT<span  class="pull-right   showopacity glyphicon glyphicon-edit"></span></li></a>
-<a  href="/admin/coupons"><li class="list-group-item">COUPONS<span style="margin-right:5px;" class="pull-right   showopacity fas fa-percent"></span></li></a>
-<a  href="/admin/messages"><li class="list-group-item">MESSAGES<span  class="pull-right   showopacity glyphicon glyphicon-envelope"></span></li></a>
-<a  href="/admin/site-settings"><li class="list-group-item">SITE SETTINGS<span  style="margin-right:3px;" class="pull-right   showopacity fas fa-cogs"></span></li></a>
-<a  href="/admin/allusers"><li class="list-group-item">ALL USERS<span style="margin-right:4px;" class="pull-right   showopacity fas fa-users"></span></li></a>
-</ul>
+    <button style="background-color: #222; color:White" class="btn btn-lg " onclick="sidebar_toggle()">Admin
+      Panel☰</button>
 
+
+    <div class="border-right-1" style="display:none;left:0px;" id="mySidebar">
+
+
+
+      <ul id="admin-list" class="list-group">
+        <a href="/admin">
+          <li class="list-group-item">DASH BOARD<span style="margin-left:1px;"
+              class="pull-right   showopacity glyphicon glyphicon-home"></span></li>
+        </a>
+        <a href="/admin/purchases">
+          <li class="list-group-item">PURCHASES<span style="margin-right:4px;"
+              class="pull-right   showopacity fab fa-product-hunt"></span></li>
+        </a>
+        <a href="/admin/sell">
+          <li class="list-group-item">ADD PRODUCT<span class="pull-right   showopacity glyphicon glyphicon-plus"></span>
+          </li>
+        </a>
+        <a href="/admin/edit">
+          <li class="list-group-item">EDIT PRODUCT<span
+              class="pull-right   showopacity glyphicon glyphicon-edit"></span></li>
+        </a>
+        <a href="/admin/coupons">
+          <li class="list-group-item">COUPONS<span style="margin-right:5px;"
+              class="pull-right   showopacity fas fa-percent"></span></li>
+        </a>
+        <a href="/admin/messages">
+          <li class="list-group-item">MESSAGES<span
+              class="pull-right   showopacity glyphicon glyphicon-envelope"></span></li>
+        </a>
+        <a href="/admin/site-settings">
+          <li class="list-group-item">SITE SETTINGS<span style="margin-right:3px;"
+              class="pull-right   showopacity fas fa-cogs"></span></li>
+        </a>
+        <a href="/admin/allusers">
+          <li class="list-group-item">ALL USERS<span style="margin-right:4px;"
+              class="pull-right   showopacity fas fa-users"></span></li>
+        </a>
+      </ul>
+
+
+    </div>
 
   </div>
-
-</div>

@@ -180,6 +180,7 @@ background-color: #ecf0f3;
   border-right: 1px #e5e5e5 solid;
 }
 
+
 @media (min-width: 768px) {
   .row {
     position: relative;

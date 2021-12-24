@@ -1,74 +1,89 @@
 <%- include("partials/header"); -%>
 
-<% if (products != "") { %>
+  <% if (products !="" ) { %>
 
     <div class="row" style="margin-top:35px;">
       <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-        
-        <p style="margin-left:30%; width:45%; text-align:center;" class="alert alert-success <%if (!goodMsg && !badMsg) { %> hidden <%}%>  ">
-        <%=goodMsg%>
-        <%=badMsg%>
+
+        <p style="margin-left:30%; width:45%; text-align:center;"
+          class="alert alert-success <%if (!goodMsg && !badMsg) { %> hidden <%}%>  ">
+          <%=goodMsg%>
+            <%=badMsg%>
 
         </p>
-          <ul class="list-group">
-<% if(products!=null) { products.forEach(function(product){ %>
- <li class="list-group-item">
-   <img src="<%= product.item.imagePath %>" style="width:25px;height:25px"></img>
-   <a href="/add-to-cart/<%=product.item._id%>" class="btn btn-primary btn-xs pull-right" style="margin-left:5px;" type="button"><i class="fas fa-plus"></i></a>
+        <ul class="list-group">
+          <% if(products!=null) { products.forEach(function(product){ %>
+            <li class="list-group-item">
+              <img src="<%= product.item.imagePath %>" style="width:25px;height:25px"></img>
+              <a href="/add-to-cart/<%=product.item._id%>" class="btn btn-primary btn-xs pull-right"
+                style="margin-left:5px;" type="button"><i class="fas fa-plus"></i></a>
 
-          <span class="pull-right productqty"><%=product.qty%></span>
-          <a href="/removeOne-from-cart/<%=product.item._id%>" class="btn btn-danger btn-xs pull-right" style="margin-left:5px;" type="button">-</a>
+              <span class="pull-right productqty">
+                <%=product.qty%>
+              </span>
+              <a href="/removeOne-from-cart/<%=product.item._id%>" class="btn btn-danger btn-xs pull-right"
+                style="margin-left:5px;" type="button">-</a>
 
-          <strong><%=product.item.title%></strong>
-          <span class="label label-success"><%=product.price%>$</span>
-            <a href="/remove-from-cart/<%=product.item._id%>" class="btn btn-warning btn-xs pull-right" style="margin-right:5px;" type="button"><i class="fas fa-trash"></i></a>
+              <strong>
+                <%=product.item.title%>
+              </strong>
+              <span class="label label-success">
+                <%=product.price%>$
+              </span>
+              <a href="/remove-from-cart/<%=product.item._id%>" class="btn btn-warning btn-xs pull-right"
+                style="margin-right:5px;" type="button"><i class="fas fa-trash"></i></a>
 
             </li>
-                    <% }) %>
+            <% }) %>
 
-      </ul>
-
-
+        </ul>
 
 
 
-    </div>
+
+
+      </div>
       <div class="myproducts col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-        <strong>SubTotal:  <%=subTotalPrice%>$ </strong>
+        <strong>SubTotal: <%=subTotalPrice%>$ </strong>
         <hr style="width:100%;">
 
         <ul class="list-group">
-  <% if(coupons.length > 0) { coupons.forEach(function(coupon){  %>
- <li class="list-group-item">
-   <img style="width:25px;height:25px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR4WamHIB30JbebcCDr6s55ByhKipiEIFKfOAyhBc73IvDTL5o-&usqp=CAU"></img>
-   <strong>Coupon: <%=coupon.coupon.name%>  </strong>
-       <span class="label label-danger"><%=coupon.coupon.discount%>%</span>
-   <a href="/shopping-cart/remove-coupon-from-cart/" class="btn btn-warning btn-xs pull-right" style="margin-right:5px;" type="button"><i class="fas fa-trash"></i></a>
+          <% if(coupons.length> 0) { coupons.forEach(function(coupon){ %>
+            <li class="list-group-item">
+              <img style="width:25px;height:25px;"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR4WamHIB30JbebcCDr6s55ByhKipiEIFKfOAyhBc73IvDTL5o-&usqp=CAU"></img>
+              <strong>Coupon: <%=coupon.coupon.name%> </strong>
+              <span class="label label-danger">
+                <%=coupon.coupon.discount%>%
+              </span>
+              <a href="/shopping-cart/remove-coupon-from-cart/" class="btn btn-warning btn-xs pull-right"
+                style="margin-right:5px;" type="button"><i class="fas fa-trash"></i></a>
 
-  </li>
-      </ul>
-              <strong>Total:  <%=totalPrice%>$ </strong>
-        <% }) } else {  %>
+            </li>
+        </ul>
+        <strong>Total: <%=totalPrice%>$ </strong>
+        <% }) } else { %>
 
-<form method="post" action="shopping-cart/coupon">
-Coupon: <input type="text" name="coupon"> <button type="submit" class="btn btn-info">APPLY</button>
-<br><label style="font-size:8px">only 1 coupon at a time</label> </form>
-<% } %>
+          <form method="post" action="shopping-cart/coupon">
+            Coupon: <input type="text" name="coupon"> <button type="submit" class="btn btn-info">APPLY</button>
+            <br><label style="font-size:8px">only 1 coupon at a time</label>
+          </form>
+          <% } %>
 
-        <hr style="width:50%;">
-        <div class="row" style="margin-top:15px;">
-          <div class="myproducts col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-            <a type="button" href="/checkout" class="btn btn-success"> Checkout </a>
-            <a href="/removeAll" class="btn btn-danger" type="button">Remove All</a>
-<% }} if(products==null || products.length < 1) { %>
+            <hr style="width:50%;">
+            <div class=" col-sm-8 col-sm-offset-3 col-md-offset-3">
 
-            <h2> No Items in Cart</h2>
-            <h3><a href="/products"> Go Shopping! </a></h2>
+              <a type="button" href="/checkout" class="btn btn-success"> Checkout </a>
+              <a href="/removeAll" class="btn btn-danger" type="button">Remove All</a>
+              <% }} if(products==null || products.length < 1) { %>
 
-        </div>
-<% } %>
-  </div>
+                <h2> No Items in Cart</h2>
+                <h3><a href="/products"> Go Shopping! </a></h2>
 
 
+                  <% } %>
+            </div>
 
-  </div>
+
+
+      </div>
