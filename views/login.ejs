@@ -1,32 +1,28 @@
 <%- include("partials/header"); -%>
 
+  <div class="loginpage">
+    <div class="text-center mt-4 name">
+      <h1> Login Page </h1>
+    </div>
+    <form class="login-form p-3 mt-3" action="/login" method="post">
+      <div class="form-group">
+        <p style="margin-top:35px;" class="alert alert-success <%if (!errorMsg) { %> hidden <%}%>  ">
+          <%=errorMsg%>
+        </p>
+        <div class="form-field d-flex align-items-center"> <label>Username</label>
+          <span class="far fa-user"></span> <input class="login-input" type="text" name="username"
+            placeholder="Username">
+        </div>
+        <div class="form-field d-flex align-items-center"> <label>Password</label> <i
+            onclick="togglePasswordFieldClicked()" id="togglePasswordField" value="Toggle Password"
+            class="fas fa-key"></i>
 
-<h1>Login</h1>
-<form class="" action="/login" method="post">
-  <div class="form-group">
-    <p style="margin-top:35px;" class="alert alert-success <%if (!errorMsg) { %> hidden <%}%>  ">
-    <%=errorMsg%>
-    </p>
-    <label>User</label>
-    <input class="form-control" style="width:15%" type="text" name="username">
-    <label>Password</label>    <i   onclick="togglePasswordFieldClicked()" id="togglePasswordField" value="Toggle Password" class="fas fa-eye"></i>
-
-    <input class="form-control" style="width:15%" id="passwordField" type="password"  value="" autocomplete="off" name="password">
+          <span class="fas fa-eye"></span><input class=" login-input" id="passwordField" type="password" value=""
+            autocomplete="off" placeholder="......" name="password">
+        </div>
+        <button class="btn btn-primary login-form loginbtn" type="submit" name="button">LOGIN</button>
+    </form>
+    <p>Don't have an account yet? <a href="/register">Sign up instead!</a></p>
   </div>
-  <button class="btn btn-primary" type="submit" name="button">LOGIN</button>
-</form>
-<p>Don't have an account yet? <a href="/register">Sign up instead!</a></p>
-<%- include("partials/footer"); -%>
-<script src="javascripts/main.js"></script>
-
-<!-- <script>
-
-  function togglePasswordFieldClicked() {
-  var pwID = document.getElementById("passwordField");
-  if (pwID.type === "password") {
-    pwID.type = "text";
-  } else {
-    pwID.type = "password";
-  }
-}
-</script> -->
+  <%- include("partials/footer"); -%>
+    <script src="javascripts/main.js"></script>
