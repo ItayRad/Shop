@@ -1,67 +1,80 @@
 <%- include("partials/admin"); -%>
 
-  <div class="col-md-8 col-md-offset-2">
+  <div style="margin-left:25px;" class="col-md-8 col-md-offset-2">
     <h1>Purchases</h1>
     <hr>
 
 
-    <% var totalPrice = 0; var count = 0;  { orders.forEach(function(order) {%>
+    <% var totalPrice=0; var count=0; { orders.forEach(function(order) {%>
 
-    <h2><a href="/admin/purchases/<%= order.name%>"><%= order.name%>'s</a> Purchase</h2>
+      <h2><a href="/admin/purchases/<%= order.name%>">
+          <%= order.name%>'s
+        </a> Purchase</h2>
 
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <ul class="list-group">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <ul class="list-group">
 
-          <% if(order.items!=null) order.items.forEach(function(item){ %>        <!---     DISPLAY SOLD PRODUCTS ---->
-          <li class="list-group-item">
-            <span class="badge"><%= item.price %>$</span>
-            <img src="<%= item.item.imagePath %>" style="width:25px;height:25px"></img>
-            <%= item.item.title %> | <%= item.qty %>
-            <% if (item.qty < 2 ) { %> Unit <% } else { %> Units <% } %>
-          </li>
-
-
-          <% if(order.coupons!=null) { order.coupons.forEach(function(coupon){ %>      <!---     DISPLAY USED COUPONS ---->
-          <li class="list-group-item">
-          <img style="width:25px;height:25px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR4WamHIB30JbebcCDr6s55ByhKipiEIFKfOAyhBc73IvDTL5o-&usqp=CAU"></img>
-            Coupon:
-            <%= coupon.coupon.name %>       <span class="badge " style="background-color:#add8e6;"> <%= coupon.coupon.discount %>%</span>
-
-          </li>
-          <% }) %>
+            <% if(order.items!=null) order.items.forEach(function(item){ %>
+              <!---     DISPLAY SOLD PRODUCTS ---->
+              <li class="list-group-item">
+                <span class="badge">
+                  <%= item.price %>$
+                </span>
+                <img src="<%= item.item.imagePath %>" style="width:25px;height:25px"></img>
+                <%= item.item.title %> | <%= item.qty %>
+                    <% if (item.qty < 2 ) { %> Unit <% } else { %> Units <% } %>
+              </li>
 
 
+              <% if(order.coupons!=null) { order.coupons.forEach(function(coupon){ %>
+                <!---     DISPLAY USED COUPONS ---->
+                <li class="list-group-item">
+                  <img style="width:25px;height:25px;"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR4WamHIB30JbebcCDr6s55ByhKipiEIFKfOAyhBc73IvDTL5o-&usqp=CAU"></img>
+                  Coupon:
+                  <%= coupon.coupon.name %> <span class="badge " style="background-color:#add8e6;">
+                      <%= coupon.coupon.discount %>%
+                    </span>
+
+                </li>
+                <% }) %>
 
 
 
-        </ul>
+
+
+          </ul>
+        </div>
+
+        <div class="panel-footer">
+
+          <strong>Total Price: $<%= order.cart.totalPrice %>
+              <% if(order.shipped) { %> <span style="margin-left:100px;color:#0275d8;">Shipped</span>
+                <% } else { %>
+
+                  <a href="purchases/shipped/<%=order._id%>" style="margin-left:100px;" class="btn btn-sm btn-primary">
+                    Mark As Shipped </a>
+                  <% } %>
+
+
+
+                    <span class="pull-right">
+
+                      Purchased at: <%=order.date%></span></strong>
+        </div>
       </div>
 
-      <div class="panel-footer">
-
-        <strong>Total Price: $<%= order.cart.totalPrice %>
-              <%  if(order.shipped) { %> <span style="margin-left:100px;color:#0275d8;">Shipped</span> <% } else { %>
-
-                              <a href="purchases/shipped/<%=order._id%>" style="margin-left:100px;" class="btn btn-sm btn-primary" > Mark As Shipped </a> <% } %>
-
-
-
-          <span class="pull-right">
-
-             Purchased at: <%=order.date%></span></strong>
-      </div>
-    </div>
-
-              <% }   }) %>
-    <% totalPrice+=order.cart.totalPrice; count++; }) %>
-    <h4> Total money made in all sales: <%= totalPrice%>$</h4>
-     <h4>Total purchases: <%=count%>  </h4>
-     <% } %>
+      <% } }) %>
+        <% totalPrice+=order.cart.totalPrice; count++; }) %>
+          <h4> Total money made in all sales: <%= totalPrice%>$</h4>
+          <h4>Total purchases: <%=count%>
+          </h4>
+          <% } %>
   </div>
 
 
 
 
 
-<%- include("partials/footer"); -%>
+  <%- include("partials/footer"); -%>
